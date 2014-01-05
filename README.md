@@ -1,4 +1,4 @@
-GeoNotes
-========
+GeoPost
+=======
 
-GeoNotes is an Android app for displaying notes on a map.
+GeoPost is an Android app for displaying notes on a map.
