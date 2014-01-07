@@ -1,8 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">GeoNotes</string>
+    <string name="app_name">GeoPosts</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
-
+    <string name="view_map">View GeoPosts Around</string>
+    <string name="title_activity_get_location">GeoPosts Around</string>
+    <string name="write_new_post">Create new GeoPost</string>
+    <string name="my_posts_list">View my GeoPosts</string>
+    <string name="preferences">Preferences</string>
+    <string name="log_out">Log Out</string>
+    <string name="title_activity_new_geopost">New Geopost</string>
+    <string name="title_activity_preferences">Preferences</string>
+    <string name="title_activity_my_geoposts">My Geoposts</string>
+    
+    <string name="general_preferences">General Preferences</string>
+    
+    <string name="language">Language</string>
+    <string name="languages">Languages</string>
+    
+    <string name="english">English</string>
+    <string name="italian">Italian</string>
+    <string name="german">German</string>
+    <string name="french">French</string>
+    
+    <string name="geoposts_pref">GeoPosts preferences</string>
+         
+    <string name="perimeter">Perimeter</string>
+    <string name="text_geo_perim">Chose perimeter whithin which GeoPosts will be visible to you</string> 
+    
+    <string name="text_geo_lang">languages of GeoPosts that will be visible to you</string>
+    <string name="text_language">set up the language of the application</string>
+    
+    <string name="comment">Comment</string>
+    <string name="special_event">Special Event</string>
+    <string name="recommendation">Recommendation</string>
+    
+    <string name="categories">Categories</string>
+    <string name="category">Category</string>
+    <string name="text_geo_cat">categories of GeoPosts that will be visible to you</string>
+   
+    <string name="profile_pref">Your Profile Preferences</string>
+    
+    <string name="edit_pseudo">Edit Your Pseudo</string>
+    <string name="text_edit_pseudo">Change the Pseudo that appears in your GeoPosts</string>
+    <string name="new_pseudo">New Pseudo</string>
+    <string name="text_enter_pseudo">Enter your new Pseudo</string>
+    <string name="default_pseudo">New Pseudo</string>
+    
+    <string name="lifetime">Lifetime</string>
+    <string name="months">months</string>
+    <string name="weeks">weeks</string>
+    <string name="days">days</string>
+    <string name="hours">hours</string>
+    <string name="title">GeoPost Title</string>
+    <string name="text">GeoPost Text</string>
+    
+    <string name="submit">Submit</string>
+    <string name="cancel">Cancel</string>
+    <string name="message_cancel">Are you sure you want to cancel this post ?</string>
+    <string name="title_cancel">Are you sure ?</string>
+    
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    
+    
 </resources>
