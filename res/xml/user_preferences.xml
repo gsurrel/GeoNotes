@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<PreferenceScreen
+    
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    
+        <PreferenceCategory
+            
+            android:key="@string/profile_pref"
+            android:title="@string/profile_pref">
+            
+            <EditTextPreference
+            android:key="edit_pseudo"
+            android:title="@string/edit_pseudo"
+            android:summary="@string/text_edit_pseudo"
+            android:dialogTitle="@string/new_pseudo"
+            android:dialogMessage="@string/text_enter_pseudo"   
+            android:defaultValue="@string/default_pseudo" />
+            
+       </PreferenceCategory>     
+</PreferenceScreen>

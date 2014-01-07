@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    
+    <PreferenceCategory
+            
+        android:title="@string/geoposts_pref"
+        android:key="geo_preferences">
+    
+        <ListPreference
+            android:key="geoperimeter"
+            android:title="@string/perimeter"
+            android:summary="@string/text_geo_perim"
+            android:defaultValue="1km"
+            android:entries="@array/Geo_perimeter"
+            android:entryValues="@array/GeoPerimeter_values"/> 
+        
+        <PreferenceScreen
+            android:key="Geo_languages"
+            android:title="@string/languages"
+            android:summary="@string/text_geo_lang">
+            
+            <CheckBoxPreference
+                android:key="English"
+                android:title="@string/english" 
+                android:defaultValue="true"/>
+            
+            <CheckBoxPreference
+                android:key="French"
+                android:title="@string/french" 
+                android:defaultValue="false"/>
+            
+            <CheckBoxPreference
+                android:key="German"
+                android:title="@string/german" 
+                android:defaultValue="false"/>
+            
+            <CheckBoxPreference
+                android:key="Italian"
+                android:title="@string/italian" 
+                android:defaultValue="false"/>
+       </PreferenceScreen>
+       
+       <PreferenceScreen
+            android:key="Geo_categories"
+            android:title="@string/categories"
+            android:summary="@string/text_geo_cat">
+            
+            <CheckBoxPreference
+                android:key="Recommendation"
+                android:title="@string/recommendation" 
+                android:defaultValue="true"/>
+            
+            <CheckBoxPreference
+                android:key="Comment"
+                android:title="@string/comment" 
+                android:defaultValue="true"/>
+            
+            <CheckBoxPreference
+                android:key="Special_event"
+                android:title="@string/special_event" 
+                android:defaultValue="true"/>
+            
+       </PreferenceScreen>
+       
+    </PreferenceCategory>
+    
+</PreferenceScreen>

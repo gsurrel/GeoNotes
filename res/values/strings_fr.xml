@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <string name="action_settings_fr">Paramètres</string>
+    <string name="view_map_fr">Voir les GeoPosts Autour de vous</string>
+    <string name="title_activity_get_location_fr">Voir Geoposts</string>
+    <string name="write_new_post_fr">Créer un nouveau GeoPost</string>
+    <string name="my_posts_list_fr">Voir mes GeoPosts</string>
+    <string name="preferences_fr">Préferences</string>
+    <string name="log_out_fr">Déconnection</string>
+    <string name="title_activity_new_geopost_fr">Nouveau Geopost</string>
+    <string name="title_activity_preferences_fr">Préferences</string>
+    <string name="title_activity_my_geoposts_fr">Mes Geoposts</string>
+    
+    <string name="general_preferences_fr">Préferences génerales</string>
+    
+    <string name="language_fr">Langue</string>
+    <string name="languages_fr">Langues</string>
+    
+    <string name="english_fr">Anglais</string>
+    <string name="italian_fr">Italien</string>
+    <string name="german_fr">Allemand</string>
+    <string name="french_fr">Français</string>
+    
+    <string name="geoposts_pref_fr">Préferences liées aux GeoPosts</string>
+         
+    <string name="perimeter_fr">Périmètre</string>
+    <string name="text_geo_perim_fr">Choisissez le périmètre dans lequel les GeoPosts qui vous sont visibles sont</string> 
+    
+    <string name="text_geo_lang_fr">Choisissez les langues des GeoPosts qui vous sont visibles</string>
+    <string name="text_language_fr">Choisissez la langue de l\'application</string>
+   
+    <string name="profile_pref_fr">Préferences liées à votre profile</string>
+    
+    <string name="edit_pseudo_fr">Changer votre pseudo</string>
+    <string name="text_edit_pseudo_fr">Changer le Pseudo qui apparait dans vos GeoPosts</string>
+    <string name="new_pseudo_fr">Nouveau Pseudo</string>
+    <string name="text_enter_pseudo_fr">Entrez votre nouveau Pseudo</string>
+    <string name="default_pseudo_fr">Nouveau Pseudo</string>
+
+</resources>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+ 
+    <color name="normal_start">#DD1B4B</color>
+    <color name="normal_end">#D14599</color>
+    <color name="normal_border">#FFFFFF</color>
+    <color name="normal_text">#000000</color>
+ 
+    <color name="pressed_start">#D14599</color>
+    <color name="pressed_end">#DD1B4B</color>
+    <color name="pressed_border">#FFFFFF</color>
+    <color name="pressed_text">#FFFFFF</color>
+ 
+    <color name="focused_start">#944224</color>
+    <color name="focused_end">#D8703B</color>
+    <color name="focused_border">#FFFFFF</color>
+    <color name="focused_text">#000000</color>
+ 
+    <color name="disabled_start">#EAB6A6</color>
+    <color name="disabled_end">#C9AB9D</color>
+    <color name="disabled_border">#FFFFFF</color>
+    <color name="disabled_text">#FFFFFF</color>
+ 
+    <color name="disabled_and_focused_start">#C29B8C</color>
+    <color name="disabled_and_focused_end">#E2AE94</color>
+    <color name="disabled_and_focused_border">#FFFFFF</color>
+    <color name="disabled_and_focused_text">#FFFFFF</color>
+ 
+</resources>

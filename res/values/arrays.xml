@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    
+    <string-array name="Geo_perimeter">
+        <item name="1km">1km</item>
+        <item name="2km">2km</item>
+        <item name="5km">5km</item>
+        <item name="10km">10km</item>
+    </string-array>
+    
+    <string-array name="GeoPerimeter_values">
+        <item name="1km">1</item>
+        <item name="2km">2</item>
+        <item name="5km">5</item>
+        <item name="10km">10</item>
+    </string-array>
+    
+    <string-array name="Language">
+        <item name="english">English</item>
+        <item name="francais">Français</item>
+    </string-array>
+    
+    <string-array name="categories">
+        <item name="recommendation">Recommendation</item>
+        <item name="comment">Comment</item>
+        <item name="special_event">Special Event</item>
+    </string-array>
+    
+    <string-array name="languages">
+        <item name="english">English</item>
+        <item name="french">French</item>
+        <item name="italian">Italian</item>
+        <item name="german">German</item>
+    </string-array>
+    
+</resources>
+
