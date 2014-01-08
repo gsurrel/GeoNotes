@@ -1,13 +1,20 @@
 package org.surrel.geoposts;
 
 import android.app.Activity;
+import android.app.Application;
+import android.content.Context;
 import android.content.Intent;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
+
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
 
 public class MainActivity extends Activity {
 
@@ -31,12 +38,39 @@ public class MainActivity extends Activity {
 		}
 	}
 
-	LocationManager locationManager;
-
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		
+		// Test if Google Play Services installed
+		int gps = GooglePlayServicesUtil.isGooglePlayServicesAvailable(getApplicationContext());
+		CharSequence text = "";
+		switch(gps){
+		case ConnectionResult.SUCCESS:
+			text = "Google Play Services loaded";
+			break;
+		case ConnectionResult.SERVICE_MISSING:
+			text = "Google Play Services missing";
+			break;
+		case ConnectionResult.SERVICE_VERSION_UPDATE_REQUIRED:
+			text = "Google Play Services needs an update";
+			break;
+		case ConnectionResult.SERVICE_DISABLED:
+			text = "Google Play Services disabled";
+			break;
+		case ConnectionResult.SERVICE_INVALID:
+			text = "Google Play Services invalid";
+			break;
+		case ConnectionResult.DATE_INVALID:
+			text = "Google Play Services date invalid";
+			break;
+		default:
+			text = "Unknown result";
+			break;
+		}
+		Toast toast = Toast.makeText(getApplicationContext(), text, Toast.LENGTH_LONG);
+		toast.show();
 	}
 
 	public void ViewMap(View view) {

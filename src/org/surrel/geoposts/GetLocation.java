@@ -7,6 +7,8 @@ import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.util.Log;
+
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
@@ -43,6 +45,8 @@ public class GetLocation extends Activity {
 		
 		String bestprovider = locationManager.getBestProvider(criteria, true);
 		Location location = locationManager.getLastKnownLocation(bestprovider);
+		
+		Log.v("Location: ", location.toString());
 		
 		LatLng MYPOSITION = new LatLng(location.getLatitude(),location.getLongitude());
 		Marker mycurrentposition = map.addMarker(new MarkerOptions()
