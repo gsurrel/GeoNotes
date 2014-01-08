@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<Geoposts>
+    <data>
+        <category>1</category>
+        <title>Movie to see</title>
+        <text>Should see this movie, excellent !!</text>
+        <creation>30 December 2013</creation>
+        <latitude></latitude>
+        <longitude></longitude>
+        <username>Person 1</username>
+    </data>
+    
+    <data>
+        <category>2</category>
+        <title>Good Restaurant</title>
+        <text>This restaurant does the tastiest pizzas and pastas ever !</text>
+        <creation>25 December 2013</creation>
+        <latitude></latitude>
+        <longitude></longitude>
+        <username>Person 2</username>
+    </data>
+    
+    <data>
+        <category>3</category>
+        <title>interesting sales</title>
+        <text>Starting from today for a whole month -50% sales in this shop</text>
+        <creation>20 December 2013</creation>
+        <latitude></latitude>
+        <longitude></longitude>
+        <username>Person 3</username>
+    </data>
+    
+</Geoposts>
+
+

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="12sp"
+    android:paddingRight="12sp" 
+    android:paddingTop="12sp"
+    android:paddingBottom="12sp">
+    
+    <RelativeLayout
+        android:background="#88FFFFFF"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:paddingLeft="10sp"
+    	android:paddingRight="10sp" 
+    	android:paddingTop="10sp"
+    	android:paddingBottom="10sp"
+        >
+        
+        <RelativeLayout
+			        android:id="@+id/geopost_icon"
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content">
+			        <ImageView
+			            android:id="@+id/geopost_cat_icon"
+			            android:contentDescription="@string/app_name"
+			            android:layout_width="wrap_content"
+			            android:layout_height="wrap_content"
+			            android:src="@drawable/ic_launcher" 
+			            android:layout_alignParentLeft="true"/>
+			        <TextView
+			        	android:id="@+id/geopost_cat"
+			        	android:layout_width="wrap_content"
+			        	android:layout_height="wrap_content"
+			        	android:layout_toRightOf="@id/geopost_cat_icon"
+			        	android:layout_marginLeft="10sp"
+			        	android:layout_centerVertical="true"
+			        	android:text="@string/app_name"
+			        	android:textColor="@color/normal_start"
+			        	android:typeface="sans" />
+			    </RelativeLayout>
+			    
+       		    <TextView
+			        android:id="@+id/geopost_username"
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:layout_below="@id/geopost_icon"
+			        android:layout_centerHorizontal="true"
+			        android:layout_marginTop="5sp"
+			        android:text="@string/app_name"
+			        android:textColor="@color/normal_start"
+			        android:textStyle="normal"
+			        android:typeface="sans" />
+       		    
+			    <TextView
+			        android:id="@+id/geopost_title"
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:layout_below="@id/geopost_username"
+			        android:layout_centerHorizontal="true"
+			        android:layout_marginTop="5sp"
+			        android:text="@string/app_name"
+			        android:textColor="@color/normal_start"
+			        android:textStyle="bold"
+			        android:typeface="sans" />
+			   
+			    <TextView 
+			        android:id="@+id/geopost_creation"
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:layout_below="@id/geopost_title"
+			        android:layout_centerHorizontal="true"
+			        android:text="@string/app_name"
+			        android:textColor="@color/normal_end"
+			        android:textStyle="italic"
+			        android:typeface="sans" />
+			    
+			    <TextView 
+			        android:id="@+id/geopost_text"
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:layout_below="@id/geopost_creation"
+			        android:layout_marginTop="8sp"
+			        android:text="@string/app_name"
+			        android:textColor="@color/normal_end"
+			        android:typeface="sans" />   
+        
+    </RelativeLayout>
+    
+</RelativeLayout>
