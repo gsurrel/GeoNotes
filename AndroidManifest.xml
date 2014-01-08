@@ -32,10 +32,12 @@
         <activity
             android:name="org.surrel.geoposts.MainActivity"
             android:label="@string/app_name" >
+            <!--  
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            -->
         </activity>
         
         <activity
@@ -73,6 +75,33 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="org.surrel.geoposts.MainActivity" />
+        </activity>
+        
+        <activity
+            android:name="org.surrel.geoposts.SampleActivity"
+            android:label="@string/title_activity_sample_activity"
+            android:parentActivityName="org.surrel.geoposts.MyGeoposts" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="org.surrel.geoposts.MainActivity" />
+        </activity>
+        
+        <activity
+            android:name="org.surrel.geoposts.FirstLaunchActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        
+        <activity
+            android:name="org.surrel.geoposts.SignUpLogIn"
+            android:label="@string/sign_up_log_in"
+            android:parentActivityName="org.surrel.geoposts.FirstLaunchActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="org.surrel.geoposts.FirstLaunchActivity" />
         </activity>
         
         <meta-data

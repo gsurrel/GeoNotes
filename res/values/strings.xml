@@ -14,6 +14,7 @@
     <string name="title_activity_new_geopost">New Geopost</string>
     <string name="title_activity_preferences">Preferences</string>
     <string name="title_activity_my_geoposts">My Geoposts</string>
+    <string name="title_activity_sample_activity">My Geopost</string>
     
     <string name="general_preferences">General Preferences</string>
     
@@ -59,11 +60,24 @@
     
     <string name="submit">Submit</string>
     <string name="cancel">Cancel</string>
-    <string name="message_cancel">Are you sure you want to cancel this post ?</string>
-    <string name="title_cancel">Are you sure ?</string>
+    <string name="title_cancel">Are you sure you want to cancel this post ?</string>
+    <string name="message_cancel">No draft will be saved, all what you have written will be lost !</string>
+    <string name="title_submit">Are you sure you want to submit this post ?</string>
+    <string name="message_submit">If you select \'yes\' the new GeoPost will be created and be visible to people around. If you select \'no\' you will be able to continue editing the GeoPost.</string>
     
     <string name="yes">Yes</string>
     <string name="no">No</string>
     
+    <string name="delete">Delete Geopost</string>
+    <string name="extend">Extend Lifetime</string>
+    
+    <string name="title_delete">Are you sure you want to delete this GeoPost ?</string>
+    <string name="message_delete">There will be no going back. Once you have deleted this GeoPost, you cannot retrieve it !</string>
+    
+    <string name="sign_up_log_in"> Signup / Login </string>
+    <string name="done">Done</string>
+    <string name="enter_pseudo">Enter your Pseudo</string>
+    <string name="enter_password">Enter your Password</string>
+
     
 </resources>

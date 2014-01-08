@@ -25,5 +25,7 @@
     <color name="disabled_and_focused_end">#E2AE94</color>
     <color name="disabled_and_focused_border">#FFFFFF</color>
     <color name="disabled_and_focused_text">#FFFFFF</color>
+    
+    <color name="transparent">#00FFFFFF</color>
  
 </resources>

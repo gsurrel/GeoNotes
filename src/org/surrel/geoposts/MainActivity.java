@@ -1,10 +1,7 @@
 package org.surrel.geoposts;
 
 import android.app.Activity;
-import android.app.Application;
-import android.content.Context;
 import android.content.Intent;
-import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -29,7 +26,7 @@ public class MainActivity extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.log_out:
-			Log.d("Menu", "Calling logout");
+			startActivity(new Intent(this, FirstLaunchActivity.class));
 			return true;
 		case R.id.preferences:
 			Log.d("Menu", "Calling prefs");

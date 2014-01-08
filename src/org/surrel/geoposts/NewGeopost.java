@@ -5,7 +5,6 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.NumberPicker;
@@ -18,6 +17,7 @@ public class NewGeopost extends Activity {
 	private NumberPicker wp;
 	
 	private Button Cancel;
+	private Button Submit;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -64,13 +64,31 @@ public class NewGeopost extends Activity {
 				cancel_dialog.create().show();
 			}
 		});
-	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.menu_logged_in, menu);
-		return true;
+	    
+	    Submit = (Button) findViewById(R.id.submit_button);
+	    Submit.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				AlertDialog.Builder cancel_dialog = new AlertDialog.Builder(NewGeopost.this);
+				cancel_dialog.setMessage(R.string.message_submit)
+				       .setTitle(R.string.title_submit)
+				       .setCancelable(false)
+				       .setPositiveButton(R.string.yes,
+				    		   new DialogInterface.OnClickListener() {
+								public void onClick(DialogInterface dialog, int which) {
+									BackToMain();
+								}
+							})
+					   .setNegativeButton(R.string.no,
+							   new DialogInterface.OnClickListener() {
+								public void onClick(DialogInterface dialog, int which) {
+									dialog.cancel();
+								}
+							});
+				
+				cancel_dialog.create().show();
+			}
+		});
 	}
 	
 	public void BackToMain()

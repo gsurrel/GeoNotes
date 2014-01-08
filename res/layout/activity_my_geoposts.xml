@@ -2,13 +2,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
-    <ListView
-      android:id="@+id/geopost_list"
-      android:layout_width="fill_parent"
-      android:layout_height="wrap_content"
-      android:divider="#b5b5b5"
-      android:dividerHeight="1dp">
-    </ListView>
+    android:orientation="vertical"
+    android:background="@drawable/citybw">
+    
+    <RelativeLayout 
+        android:layout_height="fill_parent"
+        android:layout_width="fill_parent"
+        android:background="#88FFFFFF">
+        
+        <ListView
+		    android:id="@+id/geopost_list"
+		    android:layout_width="fill_parent"
+		    android:layout_height="wrap_content"
+		    android:divider="#b5b5b5"
+		    android:dividerHeight="1dp">
+    	</ListView>
+    
+    </RelativeLayout>
+    
     
 </LinearLayout>
