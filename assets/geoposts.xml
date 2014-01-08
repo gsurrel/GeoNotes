@@ -6,8 +6,8 @@
         <title>Movie to see</title>
         <text>Should see this movie, excellent !!</text>
         <creation>30 December 2013</creation>
-        <latitude></latitude>
-        <longitude></longitude>
+        <latitude>45</latitude>
+        <longitude>4</longitude>
         <username>Person 1</username>
     </data>
     
@@ -16,8 +16,8 @@
         <title>Good Restaurant</title>
         <text>This restaurant does the tastiest pizzas and pastas ever !</text>
         <creation>25 December 2013</creation>
-        <latitude></latitude>
-        <longitude></longitude>
+        <latitude>45</latitude>
+        <longitude>5</longitude>
         <username>Person 2</username>
     </data>
     
@@ -26,8 +26,8 @@
         <title>interesting sales</title>
         <text>Starting from today for a whole month -50% sales in this shop</text>
         <creation>20 December 2013</creation>
-        <latitude></latitude>
-        <longitude></longitude>
+        <latitude>44</latitude>
+        <longitude>4</longitude>
         <username>Person 3</username>
     </data>
     

@@ -64,20 +64,27 @@ public class GetLocation extends Activity {
 
 		try {
 			MYPOSITION = new LatLng(location.getLatitude(),location.getLongitude());
+			map.addMarker(new MarkerOptions()
+				.position(MYPOSITION)
+				.icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_launcher))
+				.title("I am here")
+				.anchor(0.5f,0.5f)
+				.alpha(0.5f)
+				.snippet("I love this place"));
+			map.moveCamera(CameraUpdateFactory.newLatLngZoom(MYPOSITION, 15));
 		} catch (Exception e) {
 			// No position
 			MYPOSITION = new LatLng(0,0);
+			map.addMarker(new MarkerOptions()
+				.position(MYPOSITION)
+				.icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_launcher))
+				.title("Location not found")
+				.anchor(0.5f,0.5f)
+				.alpha(0.5f)
+				.snippet("Try again later, maybe?"));
+			map.moveCamera(CameraUpdateFactory.newLatLngZoom(MYPOSITION, 2));
 		}
 
-		map.addMarker(new MarkerOptions()
-		.position(MYPOSITION)
-		.icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_launcher))
-		.title("I am here")
-		.anchor(0.5f,0.5f)
-		.alpha(0.5f)
-		.snippet("I love this place"));
-
-		map.moveCamera(CameraUpdateFactory.newLatLngZoom(MYPOSITION, 15));
 
 
 		DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory.newInstance();
@@ -141,9 +148,8 @@ public class GetLocation extends Activity {
 				Element firstLngElement = (Element)lngList.item(0);
 				NodeList LngList = firstLngElement.getChildNodes();
 
-				//int lat = Integer.parseInt(((Node)LatList.item(0)).getNodeValue().trim());
-				//int lng = Integer.parseInt(((Node)LngList.item(0)).getNodeValue().trim());
-				int lat=45, lng=42;
+				int lat = Integer.parseInt(((Node)LatList.item(0)).getNodeValue().trim());
+				int lng = Integer.parseInt(((Node)LngList.item(0)).getNodeValue().trim());
 
 				LatLng GEOPOSITION = new LatLng(lat,lng);
 
