@@ -9,6 +9,7 @@
     <string name="write_new_post">Create new GeoPost</string>
     <string name="my_posts_list">View my GeoPosts</string>
     <string name="preferences">Preferences</string>
+    <string name="refresh">Refresh</string>
     <string name="log_out">Log Out</string>
     <string name="title_activity_new_geopost">New Geopost</string>
     <string name="title_activity_preferences">Preferences</string>

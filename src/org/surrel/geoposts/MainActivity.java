@@ -29,9 +29,16 @@ public class MainActivity extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.log_out:
+			Log.d("Menu", "Calling logout");
 			return true;
 		case R.id.preferences:
+			Log.d("Menu", "Calling prefs");
 			startActivity(new Intent(this, Preferences.class));
+			return true;
+		case R.id.refresh:
+			Log.d("Menu", "Calling refresh");
+			new RequestTask(getApplicationContext()).execute("http://gregoire.surrel.org/gps/?api");
+			Log.d("Menu", "Called refresh");
 			return true;
 		default:
 			return super.onOptionsItemSelected(item);
@@ -46,9 +53,11 @@ public class MainActivity extends Activity {
 		// Test if Google Play Services installed
 		int gps = GooglePlayServicesUtil.isGooglePlayServicesAvailable(getApplicationContext());
 		CharSequence text = "";
+		int duration = Toast.LENGTH_LONG;
 		switch(gps){
 		case ConnectionResult.SUCCESS:
 			text = "Google Play Services loaded";
+			duration = Toast.LENGTH_SHORT;
 			break;
 		case ConnectionResult.SERVICE_MISSING:
 			text = "Google Play Services missing";
@@ -69,7 +78,7 @@ public class MainActivity extends Activity {
 			text = "Unknown result";
 			break;
 		}
-		Toast toast = Toast.makeText(getApplicationContext(), text, Toast.LENGTH_LONG);
+		Toast toast = Toast.makeText(getApplicationContext(), text, duration);
 		toast.show();
 	}
 
