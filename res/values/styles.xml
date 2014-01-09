@@ -28,13 +28,9 @@
         <item name="android:textColor">@color/normal_start</item>
     </style>
     
-    <style name="Theme.Transparent" parent="android:Theme">
+    <style name="Transparent" parent="AppBaseTheme">
     	<item name="android:windowIsTranslucent">true</item>
     	<item name="android:windowBackground">@android:color/transparent</item>
-    	<item name="android:windowContentOverlay">@null</item>
-    	<item name="android:windowNoTitle">true</item>
-    	<item name="android:windowIsFloating">true</item>
-    	<item name="android:backgroundDimEnabled">false</item>
     </style>
     
      

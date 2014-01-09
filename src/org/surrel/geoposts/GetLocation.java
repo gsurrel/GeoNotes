@@ -2,11 +2,12 @@ package org.surrel.geoposts;
 
 import java.io.IOException;
 
+
+
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
-import org.json.JSONException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -16,6 +17,7 @@ import org.xml.sax.SAXException;
 import android.app.Activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
@@ -24,6 +26,7 @@ import android.util.Log;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
@@ -31,7 +34,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-public class GetLocation extends Activity {
+public class GetLocation extends Activity implements OnMarkerClickListener {
 
 	private GoogleMap map;
 
@@ -64,27 +67,20 @@ public class GetLocation extends Activity {
 
 		try {
 			MYPOSITION = new LatLng(location.getLatitude(),location.getLongitude());
-			map.addMarker(new MarkerOptions()
-				.position(MYPOSITION)
-				.icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_launcher))
-				.title("I am here")
-				.anchor(0.5f,0.5f)
-				.alpha(0.5f)
-				.snippet("I love this place"));
-			map.moveCamera(CameraUpdateFactory.newLatLngZoom(MYPOSITION, 15));
 		} catch (Exception e) {
 			// No position
 			MYPOSITION = new LatLng(0,0);
-			map.addMarker(new MarkerOptions()
-				.position(MYPOSITION)
-				.icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_launcher))
-				.title("Location not found")
-				.anchor(0.5f,0.5f)
-				.alpha(0.5f)
-				.snippet("Try again later, maybe?"));
-			map.moveCamera(CameraUpdateFactory.newLatLngZoom(MYPOSITION, 2));
 		}
 
+		map.addMarker(new MarkerOptions()
+		.position(MYPOSITION)
+		.icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_launcher))
+		.title("I am here")
+		.anchor(0.5f,0.5f)
+		.alpha(0.5f)
+		.snippet("I love this place"));
+
+		map.moveCamera(CameraUpdateFactory.newLatLngZoom(MYPOSITION, 15));
 
 
 		DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory.newInstance();
@@ -128,14 +124,6 @@ public class GetLocation extends Activity {
 				Element firstTitleElement = (Element)titleList.item(0);
 				NodeList TitleList = firstTitleElement.getChildNodes();
 
-				NodeList textList = firstgeopostElement.getElementsByTagName("text");
-				Element firstTextElement = (Element)textList.item(0);
-				NodeList TextList = firstTextElement.getChildNodes();
-
-				NodeList creaList = firstgeopostElement.getElementsByTagName("creation");
-				Element firstCreaElement = (Element)creaList.item(0);
-				NodeList CreaList = firstCreaElement.getChildNodes();
-
 				NodeList usernameList = firstgeopostElement.getElementsByTagName("username");
 				Element firstUsernameElement = (Element)usernameList.item(0);
 				NodeList UsernameList = firstUsernameElement.getChildNodes();
@@ -147,26 +135,35 @@ public class GetLocation extends Activity {
 				NodeList lngList = firstgeopostElement.getElementsByTagName("longitude");
 				Element firstLngElement = (Element)lngList.item(0);
 				NodeList LngList = firstLngElement.getChildNodes();
+				
+				NodeList creaList = firstgeopostElement.getElementsByTagName("creation");
+				Element firstCreaElement = (Element)creaList.item(0);
+				NodeList CreaList = firstCreaElement.getChildNodes();
+				
+				NodeList textList = firstgeopostElement.getElementsByTagName("text");
+				Element firstTextElement = (Element)textList.item(0);
+				NodeList TextList = firstTextElement.getChildNodes();
 
 				int lat = Integer.parseInt(((Node)LatList.item(0)).getNodeValue().trim());
-				int lng = Integer.parseInt(((Node)LngList.item(0)).getNodeValue().trim());
+			    int lng = Integer.parseInt(((Node)LngList.item(0)).getNodeValue().trim());
 
 				LatLng GEOPOSITION = new LatLng(lat,lng);
-
-				String geocategory = null;
+				
 				BitmapDescriptor geoicon = null;
+				
+				//String geocategory = null;
 
 				if ( ((Node)CatList.item(0)).getNodeValue().trim().equalsIgnoreCase("1" )) {
 					geoicon = BitmapDescriptorFactory.fromResource(R.drawable.recommendation_icon);
-					geocategory = getResources().getString(R.string.recommendation);
+					//geocategory = getResources().getString(R.string.recommendation);
 				}
 				if ( ((Node)CatList.item(0)).getNodeValue().trim().equalsIgnoreCase("2" )) {
 					geoicon = BitmapDescriptorFactory.fromResource(R.drawable.comment_icon);
-					geocategory = getResources().getString(R.string.comment);
+					//geocategory = getResources().getString(R.string.comment);
 				}
 				if ( ((Node)CatList.item(0)).getNodeValue().trim().equalsIgnoreCase("3" )) {
 					geoicon = BitmapDescriptorFactory.fromResource(R.drawable.special_event_icon);
-					geocategory = getResources().getString(R.string.special_event);
+					//geocategory = getResources().getString(R.string.special_event);
 				}
 
 				String geouser = ((Node)UsernameList.item(0)).getNodeValue().trim();
@@ -178,55 +175,41 @@ public class GetLocation extends Activity {
 						.icon(geoicon)
 						.anchor(0.5f,0.5f)
 						.alpha(0.5f)
-						.title(geouser)
-						.snippet(geotitle)
-						);	         
-			};        
-		};
+						.title(geouser + geotitle + geocreation)
+						.snippet(geotext)
+						);
+				
+				map.setOnMarkerClickListener(new OnMarkerClickListener()
+                {
 
-		/*map.addMarker (new MarkerOptions().position(GEOPOSITION)
-				.icon(geoicon)
-				.anchor(0.5f,0.5f)
-				.alpha(0.5f)
-				.title(String.valueOf(i))
-				.snippet(geotitle)
-				);*/
+                    @Override
+                    public boolean onMarkerClick(Marker marker) {
+                    	Intent intent = new Intent();
+    					intent.setClass(GetLocation.this, ViewGeopost.class);
+    					
+    					intent.putExtra("category", getResources().getString(R.string.comment));
+    					intent.putExtra("text", "geopost text blabla blabla bla");
+    					intent.putExtra("title", "geopost title");
+    					intent.putExtra("creation", "geopost creation");
+    					intent.putExtra("user", "geopost user");
+    					
+    					startActivity(intent);
+                        return true;
+                    }
+
+                });
+				
+				
+			}; 
+			
+		};
 	}
 
-	/*private final LocationListener locationListener = new LocationListener() {
-		public void onLocationChanged(Location location) {
-			updateWithNewLocation(location);
-		}
-
-		public void onProviderDisabled(String provider){
-			updateWithNewLocation(null);
-		}
-		public void onProviderEnabled(String provider){}
-		public void onStatusChanged(String provider, int status, Bundle extras){}
-
-	};
-
-	private void updateWithNewLocation (Location location){
-		String latLongString;
-		TextView myLocationText;
-		myLocationText = (TextView)findViewById(R.id.myLocationText);
-
-		if (location != null) {
-			Double geoLat = location.getLatitude()*1E6;
-			Double geoLng = location.getLongitude()*1E6;
-
-
-			double lat = location.getLatitude();
-			double lng = location.getLongitude();
-
-			latLongString = "Latitude:" + lat + "\nLongitude:" + lng;
-		}
-		else {
-			latLongString = "No Location Found";
-		}
-
-		myLocationText.setText("Your current location is : \n" + latLongString);
-	} */
+	@Override
+	public boolean onMarkerClick(Marker marker) {
+	     return true;
+	}
+	
 
 }
 

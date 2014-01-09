@@ -6,12 +6,13 @@
     android:paddingLeft="12sp"
     android:paddingRight="12sp" 
     android:paddingTop="12sp"
-    android:paddingBottom="12sp">
+    android:paddingBottom="12sp"
+    android:background="#00FFFFFF">
     
     <RelativeLayout
-        android:background="#88FFFFFF"
+        android:background="#CCFFFFFF"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="fill_parent"
         android:layout_centerVertical="true"
         android:paddingLeft="10sp"
     	android:paddingRight="10sp" 

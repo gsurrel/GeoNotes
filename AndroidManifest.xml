@@ -104,6 +104,16 @@
                 android:value="org.surrel.geoposts.FirstLaunchActivity" />
         </activity>
         
+        <activity
+            android:name="org.surrel.geoposts.ViewGeopost"
+            android:label="@string/view_geopost"
+            android:parentActivityName="org.surrel.geoposts.GetLocation"
+            android:theme="@style/Transparent">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="org.surrel.geoposts.GetLocation" />
+        </activity>
+        
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="AIzaSyCjYQNqi792KQCpp3cg1XbKSwKGCHZ5zOc" />
