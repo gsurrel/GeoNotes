@@ -79,5 +79,8 @@
     <string name="enter_pseudo">Enter your Pseudo</string>
     <string name="enter_password">Enter your Password</string>
 
+    <string name="refresh_network_error">Refresh failed. Please check your network connectivity</string>
+    <string name="refresh_data_error">Refresh failed. Data is corrupted</string>
+    <string name="refresh_ok">Refresh OK</string>
     
 </resources>
