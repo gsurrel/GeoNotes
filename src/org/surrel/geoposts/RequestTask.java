@@ -15,7 +15,6 @@ import org.json.JSONObject;
 
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.res.Resources;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -78,39 +77,36 @@ class RequestTask extends AsyncTask<String, String, String>{
 						Log.e("Refresh", errors.getString(i));
 					}
 
-					// Gets the data repository in write mode
+					// Gets the data repository in write mode and drop current DB
 					NotesDbHelper notesDbHelper = new NotesDbHelper(context);
 					SQLiteDatabase db = notesDbHelper.getWritableDatabase();
+					notesDbHelper.onUpgrade(db, 0, 0);
 
 					// Get JSON data
 					JSONArray data = (JSONArray) json.getJSONArray("data");
 					for(int i=0; i<data.length(); i++)
 					{
 						// Read JSON note data and insert in DB
-						
 						// Create a new map of values, where column names are the keys
 						ContentValues values = new ContentValues();
-						Log.d("SQLite", data.getJSONObject(i).names().toString());
-						for(int j=0; j<data.length(); j++)
+						JSONArray keys = data.getJSONObject(i).names();
+						for(int j=0; j<keys.length(); j++)
 						{
-							//values.put(data.names(), data.getInt("ID"));
+							values.put(keys.getString(j), data.getJSONObject(i).get(keys.getString(j)).toString());
 						}
-						values.put("ID", data.getJSONObject(i).getInt("ID"));
-						values.put("lat", data.getJSONObject(i).getDouble("lat"));
-						values.put("lon", data.getJSONObject(i).getDouble("lon"));
-						values.put("title", data.getJSONObject(i).getString("title"));
-						values.put("text", data.getJSONObject(i).getString("text"));
-						values.put("user", data.getJSONObject(i).getString("text"));
-						values.put("karma", data.getJSONObject(i).getInt("karma"));
-						values.put("creation", data.getJSONObject(i).getInt("creation"));
-						values.put("lifetime", data.getJSONObject(i).getInt("lifetime"));
-						values.put("lang", data.getJSONObject(i).getString("lang"));
-						values.put("cat", data.getJSONObject(i).getInt("cat"));
 	
 						// Insert the new row, returning the primary key value of the new row
 						long newRowId;
-						newRowId = db.insert("notes", null, values); 
-						
+						newRowId = db.insertWithOnConflict("notes", null, values, SQLiteDatabase.CONFLICT_REPLACE);
+						if(newRowId == -1)
+						{
+							// Error occurred
+							Log.e("Refresh", "Could not insert/update in DB");
+						}
+						else
+						{
+							Log.v("Refresh", "Post successfully inserted/updated in DB");
+						}
 					}
 
 				} catch (JSONException e) {
@@ -118,7 +114,7 @@ class RequestTask extends AsyncTask<String, String, String>{
 					e.printStackTrace();
 					result = "@string/refresh_data_error";
 				}
-				Log.v("Refresh", result);
+				//Log.v("Refresh", result);
 				//Log.d("Refresh", "Got result".concat(result));
 				urlConnection.disconnect();
 				Log.d("Refresh", "Disconnect");
