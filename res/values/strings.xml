@@ -81,6 +81,7 @@
     
     <string name="view_geopost">GeoPost</string>
 
+    <string name="refresh_unknown_error">An unknown error occurred. Try again later.</string>
     <string name="refresh_network_error">Refresh failed. Please check your network connectivity</string>
     <string name="refresh_data_error">Refresh failed. Data is corrupted</string>
     <string name="refresh_ok">Refresh OK</string>

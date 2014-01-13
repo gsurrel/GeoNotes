@@ -4,24 +4,14 @@
     android:layout_height="match_parent"
     android:background="@drawable/citybw"
     tools:context=".FirstLaunchActivity" >
-    
-    <RelativeLayout 
+
+    <Button
+        android:id="@+id/sign_up_log_in_button"
+        style="@style/SingleGradient"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true">
-        
-        <Button
-	        android:id="@+id/sign_up_log_in_button"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_centerHorizontal="true"
-	        android:layout_centerVertical="true"
-	        android:text="@string/sign_up_log_in"
-	        android:onClick="SignUpLogIn"
-	        style="@style/SingleGradient"/>
-	    
-    </RelativeLayout>
+        android:layout_centerInParent="true"
+        android:onClick="SignUpLogIn"
+        android:text="@string/sign_up_log_in" />
 
-    
-        
 </RelativeLayout>

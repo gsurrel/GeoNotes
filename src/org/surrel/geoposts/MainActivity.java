@@ -26,7 +26,7 @@ public class MainActivity extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.log_out:
-			startActivity(new Intent(this, FirstLaunchActivity.class));
+			startActivity(new Intent(this, SignUpLogIn.class));
 			return true;
 		case R.id.preferences:
 			Log.d("Menu", "Calling prefs");

@@ -12,7 +12,7 @@
             android:key="geoperimeter"
             android:title="@string/perimeter"
             android:summary="@string/text_geo_perim"
-            android:defaultValue="1km"
+            android:defaultValue="1"
             android:entries="@array/Geo_perimeter"
             android:entryValues="@array/GeoPerimeter_values"/> 
         
