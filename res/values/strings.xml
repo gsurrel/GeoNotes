@@ -81,9 +81,15 @@
     
     <string name="view_geopost">GeoPost</string>
 
+    <!-- Network related strings -->
     <string name="refresh_unknown_error">An unknown error occurred. Try again later.</string>
     <string name="refresh_network_error">Refresh failed. Please check your network connectivity</string>
     <string name="refresh_data_error">Refresh failed. Data is corrupted</string>
     <string name="refresh_ok">Refresh OK</string>
+    <string name="wrong_request">Malformed network request</string>
+    <string name="unknown_request">Unknown network request</string>
+    <string name="login_ok">Login successful!</string>
+    <string name="login_error">Login failed!</string>
+    <!-- End of network related strings -->
     
 </resources>

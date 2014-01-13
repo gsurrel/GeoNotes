@@ -15,7 +15,10 @@ import org.json.JSONObject;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.database.sqlite.SQLiteDatabase;
+import android.preference.PreferenceManager;
 import android.util.Log;
 
 public class GeoPostServer
@@ -43,7 +46,6 @@ public class GeoPostServer
 	private URL url;
 	private JSONArray infos, warnings, errors;
 	private JSONObject data;
-	private int server_notification; 
 
 	public GeoPostServer(Context context)
 	{
@@ -61,25 +63,24 @@ public class GeoPostServer
 	private int request(String params) throws JSONException, IOException
 	{
 		int result = ERROR_UNKNOWN;
-		// TODO: go to POST request
+		Log.d("gps.request", "Connection");
 		HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-		Log.d("request", "Opened connection");
 		urlConnection.setDoInput(true);
 		urlConnection.setDoOutput(true);
 		urlConnection.setUseCaches(false);
 		urlConnection.setRequestMethod("POST");
-		urlConnection.connect();
-		Log.v("request", params);
 		urlConnection.getOutputStream().write(params.getBytes());
+		Log.d("gps.request", "Set output stream: "+params);
+		urlConnection.connect();
 
 		InputStream in = new BufferedInputStream(urlConnection.getInputStream());
-		Log.d("request", "Get input stream");
+		Log.d("gps.request", "Get input stream");
 
 		readStream(in);
 		result = OK;
 
 		urlConnection.disconnect();
-		Log.d("request", "Disconnect");
+		Log.d("gps.request", "Disconnect");
 
 		return result;
 	}
@@ -96,7 +97,7 @@ public class GeoPostServer
 		SQLiteDatabase db = notesDbHelper.getWritableDatabase();
 		notesDbHelper.onUpgrade(db, 0, 0);
 
-		Log.v("refreshDB", this.data.toString());
+		Log.v("gps.refreshDB", this.data.toString());
 		
 		JSONArray notes = this.data.getJSONArray("data");
 		for(int i=0; i<notes.length(); i++)
@@ -116,23 +117,54 @@ public class GeoPostServer
 			if(newRowId == -1)
 			{
 				// Error occurred
-				Log.e("refreshDB", "Could not insert/update in DB");
+				Log.e("gps.refreshDB", "Could not insert/update in DB");
 			}
 			else
 			{
-				Log.v("refreshDB", "Post successfully inserted/updated in DB");
+				Log.v("gps.refreshDB", "Post successfully inserted/updated in DB");
 			}
 		}
 
-		Log.v("refreshDB", String.valueOf(result));
+		Log.v("gps.refreshDB", String.valueOf(result));
 
 		return result;
 	}
 
-	public int user_login(String username, String password)
+	public int user_login(String login, String password) throws JSONException, IOException
 	{
+		String params = "action=login&username_email="+login+"&password="+password;
+		Log.i("gps.login", "Trying login: "+params);
+		int result = request(params);
+		Log.i("gps.login", "Result: "+result);
+
+		if(this.infos != null)
+			Log.v("gps.login", "Infos: "+this.infos.toString());
+		if(this.warnings != null)
+			Log.v("gps.login", "Warnings: "+this.warnings.toString());
+		if(this.errors != null)
+			Log.v("gps.login", "Errors: "+this.errors.toString());
+		Log.v("gps.login", "Data: "+this.data.toString());
 		
-		return 0;
+		// Save user details in settings
+		if(!this.data.isNull("data"))
+		{
+			Log.v("gps.login", "Writing settings");
+			SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
+			Editor settings_editor = settings.edit();
+			JSONObject user = this.data.getJSONObject("data");
+			settings_editor.putInt("user_id", user.getInt("ID"));
+			settings_editor.putString("user_name", user.getString("username"));
+			settings_editor.putString("user_email", user.getString("email"));
+			// TODO: restore settings from server to app
+			settings_editor.apply();
+			Log.v("gps.login", "Writing done.");
+		}
+		else
+		{
+			result = ERROR_LOGIN;
+		}
+		
+		return result;
 	}
 
 	public int user_register()
@@ -179,22 +211,18 @@ public class GeoPostServer
 		}
 
 		// Fill-in variables
-		this.server_notification = 0;
 		JSONArray infos;
 		infos = (JSONArray) json.getJSONArray("infos");
 		for(int i=0; i<infos.length(); i++) {
 			Log.i("readStream", infos.optString(i));
-			this.server_notification = 1;
 		}
 		JSONArray warnings = (JSONArray) json.getJSONArray("warnings");
 		for(int i=0; i<warnings.length(); i++) {
 			Log.w("readStream", warnings.optString(i));
-			this.server_notification = 1;
 		}
 		JSONArray errors = (JSONArray) json.getJSONArray("errors");
 		for(int i=0; i<errors.length(); i++) {
 			Log.e("readStream", errors.optString(i));
-			this.server_notification = 1;
 		}
 		String[] fields = {"data"};
 		this.data = new JSONObject(json, fields);

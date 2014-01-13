@@ -35,7 +35,7 @@ public class MainActivity extends Activity {
 		case R.id.refresh:
 			Log.d("Menu", "Calling refresh");
 			RequestTask rq = new RequestTask(getApplicationContext());
-			rq.execute("http://gregoire.surrel.org/gps/?api", "action=list", "username_email=test", "password=test");
+			rq.execute("updateDB", "test", "test");
 			Log.d("Menu", "Called refresh");
 			return true;
 		default:
