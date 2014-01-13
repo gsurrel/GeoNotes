@@ -90,7 +90,7 @@ public class GetLocation extends Activity implements OnMarkerClickListener {
 				"text", "user", "karma", "creation",
 				"lifetime", "lang", "cat"
 		};
-		String limit = "15";
+		String limit = "0.1"; // TODO: 
 		String[] selectionArgs = new String[]{
 				String.valueOf(my_positions.latitude),
 				limit,
