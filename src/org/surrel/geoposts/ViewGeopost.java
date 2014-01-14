@@ -69,7 +69,7 @@ public class ViewGeopost extends Activity{
 			Log.v("success","set title");
 			text = selected_post.getString(selected_post.getColumnIndex("text"));
 			Log.v("success","set text");
-			user = String.valueOf(selected_post.getInt(selected_post.getColumnIndex("user")));
+			user = selected_post.getString(selected_post.getColumnIndex("user"));
 			Log.v("success","set user");
 			creation = new Date(1000*selected_post.getLong(selected_post.getColumnIndex("creation")));
 			Log.v("success","set creation");

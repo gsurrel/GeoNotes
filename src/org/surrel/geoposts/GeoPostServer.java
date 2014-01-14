@@ -28,7 +28,8 @@ public class GeoPostServer
 	public static final int ERROR_DATA_INVALID = 2;
 	public static final int ERROR_NETWORK = 3;
 	public static final int ERROR_LOGIN = 4;
-	public static final int ERROR_EMAIL = 5;
+	public static final int ERROR_EMAIL_UNIQUE = 5;
+	public static final int ERROR_USERNAME_UNIQUE = 6;
 
 	/* Could be handy in the future
 	for(int i=1; i<args.length; i++)
@@ -95,7 +96,7 @@ public class GeoPostServer
 		// Gets the data repository in write mode and drop current DB
 		NotesDbHelper notesDbHelper = new NotesDbHelper(context);
 		SQLiteDatabase db = notesDbHelper.getWritableDatabase();
-		notesDbHelper.onUpgrade(db, 0, 0);
+		//notesDbHelper.onUpgrade(db, 0, 0);
 
 		Log.v("gps.refreshDB", this.data.toString());
 		
@@ -167,9 +168,43 @@ public class GeoPostServer
 		return result;
 	}
 
-	public int user_register()
+	public int user_register(String login, String password, String email) throws JSONException, IOException
 	{
-		return 0;
+		String params = "action=register&username="+login+"&password="+password+"&email="+email;
+		Log.i("gps.signup", "Trying signup: "+params);
+		int result = request(params);
+		Log.i("gps.signup", "Result: "+result);
+
+		if(this.infos != null)
+			Log.v("gps.signup", "Infos: "+this.infos.toString());
+		if(this.warnings != null)
+			Log.v("gps.signup", "Warnings: "+this.warnings.toString());
+		if(this.errors != null)
+			Log.v("gps.signup", "Errors: "+this.errors.toString());
+		Log.v("gps.signup", "Data: "+this.data.toString());
+		
+		// Save user details in settings
+		if(this.errors != null)
+		{
+			if(this.errors.getString(0) == "Err. user>add : SQLSTATE[23000]: Integrity constraint violation: 19 column username is not unique")
+			{
+				result = ERROR_USERNAME_UNIQUE;
+			}
+			else if(this.errors.getString(0) == "Err. user>add : SQLSTATE[23000]: Integrity constraint violation: 19 column email is not unique")
+			{
+				result = ERROR_EMAIL_UNIQUE;
+			}
+			else
+			{
+				result = ERROR_UNKNOWN;
+			}
+		}
+		else
+		{	
+			result = OK;
+		}
+		
+		return result;
 	}
 
 	public int user_update(String key, String value)

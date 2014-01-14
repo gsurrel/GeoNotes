@@ -15,7 +15,7 @@ public class FirstLaunchActivity extends Activity {
 	
 	public void SignUpLogIn(View view)
 	{
-		Intent signuplogin = new Intent(this, SignUpLogIn.class);
+		Intent signuplogin = new Intent(this, LogIn.class);
 		startActivity(signuplogin);
 	}
 	

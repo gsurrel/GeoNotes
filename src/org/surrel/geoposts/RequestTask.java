@@ -22,10 +22,9 @@ class RequestTask extends AsyncTask<String, String, String>{
 	@Override
 	protected String doInBackground(String...args) {
 		Resources res = context.getResources();
-		if(args.length != 3)
+		if(args.length < 2)
 		{
-			// We expect 3 arguments:
-			//  action, login, password
+			// We expect at least 2 arguments
 			return res.getString(R.string.wrong_request);
 		}
 		GeoPostServer gps = new GeoPostServer(context);
@@ -47,6 +46,18 @@ class RequestTask extends AsyncTask<String, String, String>{
 				else
 				{
 					result = res.getString(R.string.login_error);
+				}
+			}
+			else if(args[0] == "signup")
+			{
+				int tmp = gps.user_register(args[1], args[2], args[3]);
+				if(tmp == GeoPostServer.OK)
+				{
+					result = res.getString(R.string.signup_ok);
+				}
+				else
+				{
+					result = res.getString(R.string.signup_error);
 				}
 			}
 			else

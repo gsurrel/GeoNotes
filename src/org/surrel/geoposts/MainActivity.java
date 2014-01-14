@@ -1,8 +1,13 @@
 package org.surrel.geoposts;
 
+import org.json.JSONObject;
+
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -26,7 +31,14 @@ public class MainActivity extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.log_out:
-			startActivity(new Intent(this, SignUpLogIn.class));
+			// Remove user settings
+			SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+			Editor settings_editor = settings.edit();
+			settings_editor.remove("user_id");
+			settings_editor.remove("user_name");
+			settings_editor.remove("user_email");
+			settings_editor.apply();
+			startActivity(new Intent(this, LogIn.class));
 			return true;
 		case R.id.preferences:
 			Log.d("Menu", "Calling prefs");
