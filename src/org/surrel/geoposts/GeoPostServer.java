@@ -1,6 +1,7 @@
 package org.surrel.geoposts;
 
 import java.io.BufferedInputStream;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -13,11 +14,15 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.database.sqlite.SQLiteDatabase;
+import android.location.Location;
+import android.location.LocationManager;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
@@ -53,7 +58,7 @@ public class GeoPostServer
 		this.context = context;
 		try
 		{
-			url = new URL("http://gregoire.surrel.org/gps/?api&");
+			url = new URL("http://gregoire.surrel.org/gps/?api&username_email=test&password=test&");
 		}
 		catch (MalformedURLException e)
 		{
@@ -86,9 +91,9 @@ public class GeoPostServer
 		return result;
 	}
 
-	public int refreshDB(String login, String password) throws JSONException, IOException
+	public int refreshDB() throws JSONException, IOException
 	{
-		String params = "action=list&username_email="+login+"&password="+password;
+		String params = "action=list";
 		int result;
 
 		result = request(params);
@@ -212,6 +217,44 @@ public class GeoPostServer
 		else
 		{	
 			result = OK;
+		}
+		
+		return result;
+	}
+
+	public int post(String lang, String category, String lifetime, String title, String text, String lat, String lon) throws JSONException, IOException
+	{
+
+		String params = "action=note_add&title="+title+"&text="+text+"&category="+category+"&lifetime="+lifetime+"&lang="+lang+"&lat="+lat+"&lon="+lon;
+		Log.i("gps.post", "Trying posting: "+params);
+		int result = request(params);
+		Log.i("gps.post", "Result: "+result);
+
+		if(this.infos != null)
+			Log.v("gps.post", "Infos: "+this.infos.toString());
+		if(this.warnings != null)
+			Log.v("gps.post", "Warnings: "+this.warnings.toString());
+		if(this.errors != null)
+			Log.v("gps.post", "Errors: "+this.errors.toString());
+		Log.v("gps.login", "Data: "+this.data.toString());
+		
+		// Save user details in settings
+		if(!this.data.isNull("data"))
+		{
+			Log.v("gps.post", "Writing settings");
+			SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
+			Editor settings_editor = settings.edit();
+			JSONObject user = this.data.getJSONObject("data");
+			settings_editor.putInt("user_id", user.getInt("ID"));
+			settings_editor.putString("user_name", user.getString("username"));
+			settings_editor.putString("user_email", user.getString("email"));
+			// TODO: restore settings from server to app
+			settings_editor.apply();
+			Log.v("gps.post", "Writing done.");
+		}
+		else
+		{
+			result = ERROR_LOGIN;
 		}
 		
 		return result;

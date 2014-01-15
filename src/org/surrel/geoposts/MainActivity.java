@@ -27,10 +27,10 @@ public class MainActivity extends Activity {
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
+		SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 		switch (item.getItemId()) {
 		case R.id.log_out:
 			// Remove user settings
-			SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 			Editor settings_editor = settings.edit();
 			settings_editor.remove("user_id");
 			settings_editor.remove("user_name");
@@ -45,7 +45,9 @@ public class MainActivity extends Activity {
 		case R.id.refresh:
 			Log.d("Menu", "Calling refresh");
 			RequestTask rq = new RequestTask(getApplicationContext());
-			rq.execute("updateDB", "test", "test");
+			settings.getInt("user_id", -1);
+			// TODO: switch to real user ID when server ready to
+			rq.execute("updateDB");
 			Log.d("Menu", "Called refresh");
 			return true;
 		default:

@@ -111,8 +111,9 @@ public class GetLocation extends Activity implements OnMarkerClickListener {
 				"notes",
 				columns,
 				"( (?*360/40075) > ( (?-lat)*(?-lat) + (?-lon)*(?-lon) ) ) " +
-				"AND ( (? AND (cat = ?)) OR (? AND (cat = ?)) OR (? AND (cat = ?)) ) " +		
-				"AND ( (? AND (lang = ?)) OR (? AND (lang = ?)) OR (? AND (lang = ?)) OR (? AND (lang = ?)))",
+				// TODO: Remove the 1=1 OR bypass here
+				"AND ( 1=1 OR (? AND (cat = ?)) OR (? AND (cat = ?)) OR (? AND (cat = ?)) ) " +		
+				"AND ( 1=1 OR (? AND (lang = ?)) OR (? AND (lang = ?)) OR (? AND (lang = ?)) OR (? AND (lang = ?)))",
 				selectionArgs,
 				null, null, null); // Not grouping, filtering or sorting
 		

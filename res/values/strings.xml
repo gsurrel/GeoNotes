@@ -96,6 +96,7 @@
     <string name="signup_error">Signup failed!</string>
     <string name="signup_username_unique">Username already exists!</string>
     <string name="signup_email_unique">Email already used!</string>
+    <string name="post_ok">Creation successful!</string>
     <!-- End of network related strings -->
     
 </resources>

@@ -22,9 +22,9 @@ class RequestTask extends AsyncTask<String, String, String>{
 	@Override
 	protected String doInBackground(String...args) {
 		Resources res = context.getResources();
-		if(args.length < 2)
+		if(args.length < 1)
 		{
-			// We expect at least 2 arguments
+			// We expect at least 1 arguments for the action
 			return res.getString(R.string.wrong_request);
 		}
 		GeoPostServer gps = new GeoPostServer(context);
@@ -33,7 +33,7 @@ class RequestTask extends AsyncTask<String, String, String>{
 		try {
 			if(args[0] == "updateDB")
 			{
-				gps.refreshDB(args[1], args[2]);
+				gps.refreshDB();
 				result = res.getString(R.string.refresh_ok);
 			}
 			else if(args[0] == "login")
@@ -51,6 +51,28 @@ class RequestTask extends AsyncTask<String, String, String>{
 			else if(args[0] == "signup")
 			{
 				int tmp = gps.user_register(args[1], args[2], args[3]);
+				if(tmp == GeoPostServer.OK)
+				{
+					result = res.getString(R.string.signup_ok);
+				}
+				else
+				{
+					switch(tmp)
+					{
+					case GeoPostServer.ERROR_EMAIL_UNIQUE:
+						result = res.getString(R.string.signup_email_unique);
+						break;
+					case GeoPostServer.ERROR_USERNAME_UNIQUE:
+						result = res.getString(R.string.signup_username_unique);
+						break;
+					default:
+						result = res.getString(R.string.signup_error);
+					}
+				}
+			}
+			else if(args[0] == "post")
+			{
+				int tmp = gps.post(args[1], args[2], args[3], args[4], args[5], args[6], args[7]);
 				if(tmp == GeoPostServer.OK)
 				{
 					result = res.getString(R.string.signup_ok);
