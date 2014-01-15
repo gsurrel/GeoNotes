@@ -104,7 +104,6 @@ public class NewGeopost extends Activity {
 		return super.onCreateOptionsMenu(menu);
 	}
 	
-	@SuppressLint("NewApi")
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 	    // Handle presses on the action bar items
