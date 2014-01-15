@@ -57,7 +57,17 @@ class RequestTask extends AsyncTask<String, String, String>{
 				}
 				else
 				{
-					result = res.getString(R.string.signup_error);
+					switch(tmp)
+					{
+					case GeoPostServer.ERROR_EMAIL_UNIQUE:
+						result = res.getString(R.string.signup_email_unique);
+						break;
+					case GeoPostServer.ERROR_USERNAME_UNIQUE:
+						result = res.getString(R.string.signup_username_unique);
+						break;
+					default:
+						result = res.getString(R.string.signup_error);
+					}
 				}
 			}
 			else

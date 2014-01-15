@@ -60,6 +60,7 @@
     
     <string name="submit">Submit</string>
     <string name="cancel">Cancel</string>
+    <string name="send">Send</string>
     <string name="title_cancel">Are you sure you want to cancel this post ?</string>
     <string name="message_cancel">No draft will be saved, all what you have written will be lost !</string>
     <string name="title_submit">Are you sure you want to submit this post ?</string>
@@ -93,6 +94,8 @@
     <string name="login_error">Login failed!</string>
     <string name="signup_ok">Signup successful!</string>
     <string name="signup_error">Signup failed!</string>
+    <string name="signup_username_unique">Username already exists!</string>
+    <string name="signup_email_unique">Email already used!</string>
     <!-- End of network related strings -->
     
 </resources>

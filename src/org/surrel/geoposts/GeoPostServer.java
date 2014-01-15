@@ -184,19 +184,29 @@ public class GeoPostServer
 		Log.v("gps.signup", "Data: "+this.data.toString());
 		
 		// Save user details in settings
+		Log.e("DEBUG GEOPOSTSERVER", "Start loop");
+		Log.e("DEBUG GEOPOSTSERVER", this.errors.toString());
 		if(this.errors != null)
 		{
-			if(this.errors.getString(0) == "Err. user>add : SQLSTATE[23000]: Integrity constraint violation: 19 column username is not unique")
+			for(int i=0; i<this.errors.length(); i++)
 			{
-				result = ERROR_USERNAME_UNIQUE;
-			}
-			else if(this.errors.getString(0) == "Err. user>add : SQLSTATE[23000]: Integrity constraint violation: 19 column email is not unique")
-			{
-				result = ERROR_EMAIL_UNIQUE;
-			}
-			else
-			{
-				result = ERROR_UNKNOWN;
+				String str = this.errors.getString(i);
+				Log.e("DEBUG GEOPOSTSERVER", ">"+str+"<");
+				if(str.contains("username"))
+				{
+					Log.e("DEBUG GEOPOSTSERVER", "USERNAME");
+					result = ERROR_USERNAME_UNIQUE;
+				}
+				else if(str.contains("email"))
+				{
+					Log.e("DEBUG GEOPOSTSERVER", "EMAIL");
+					result = ERROR_EMAIL_UNIQUE;
+				}
+				else
+				{
+					Log.e("DEBUG GEOPOSTSERVER", "UNKNOWN");
+					result = ERROR_UNKNOWN;
+				}
 			}
 		}
 		else
@@ -246,16 +256,15 @@ public class GeoPostServer
 		}
 
 		// Fill-in variables
-		JSONArray infos;
-		infos = (JSONArray) json.getJSONArray("infos");
+		this.infos = (JSONArray) json.getJSONArray("infos");
 		for(int i=0; i<infos.length(); i++) {
 			Log.i("readStream", infos.optString(i));
 		}
-		JSONArray warnings = (JSONArray) json.getJSONArray("warnings");
+		this.warnings = (JSONArray) json.getJSONArray("warnings");
 		for(int i=0; i<warnings.length(); i++) {
 			Log.w("readStream", warnings.optString(i));
 		}
-		JSONArray errors = (JSONArray) json.getJSONArray("errors");
+		this.errors = (JSONArray) json.getJSONArray("errors");
 		for(int i=0; i<errors.length(); i++) {
 			Log.e("readStream", errors.optString(i));
 		}
