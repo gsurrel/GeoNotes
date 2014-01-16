@@ -22,7 +22,7 @@ public class LogIn extends Activity {
 
 	@Override
 	public void onBackPressed() {
-		// Otherwise defer to system default behavior.
+		// Prevent going back when we landed on login screen.
 		return;
 	}
 

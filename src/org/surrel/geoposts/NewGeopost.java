@@ -1,5 +1,6 @@
 package org.surrel.geoposts;
 
+import java.util.List;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
@@ -42,9 +43,6 @@ public class NewGeopost extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_new_geopost);
-
-		String context = Context.LOCATION_SERVICE;
-		locationManager = (LocationManager) getSystemService(context);
 
 		mp = (NumberPicker) findViewById(R.id.month_picker);
 		mp.setMaxValue(11);
@@ -125,8 +123,8 @@ public class NewGeopost extends Activity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu items for use in the action bar
 		MenuInflater inflater = getMenuInflater();
-				inflater.inflate(R.menu.new_geopost, menu);
-				return super.onCreateOptionsMenu(menu);
+		inflater.inflate(R.menu.new_geopost, menu);
+		return super.onCreateOptionsMenu(menu);
 	}
 
 	@Override
@@ -144,20 +142,16 @@ public class NewGeopost extends Activity {
 	public void sendThenBackToMain() {
 		Log.d("Act.post", "Calling post");
 
-		Criteria criteria = new Criteria();
-		criteria.setAccuracy(Criteria.ACCURACY_FINE);
-		criteria.setAltitudeRequired(false);
-		criteria.setBearingRequired(false);
-		criteria.setCostAllowed(true);
-		criteria.setPowerRequirement(Criteria.POWER_LOW);
-		String bestprovider = locationManager.getBestProvider(criteria, true);
-		// Location location =
-		// locationManager.getLastKnownLocation(bestprovider);
-		// Log.i("sendThenBackToMain", location.toString());
-		// LatLng my_position = new
-		// LatLng(location.getLatitude(),location.getLongitude());
-		// TODO: get real location
-		LatLng my_position = new LatLng(46.5179, 6.5676);
+		LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);  
+		List<String> providers = lm.getProviders(true);
+
+		// Loop over array and if we get an accurate location we break out the loop
+		Location my_latlon = null;
+		for(int i=providers.size()-1; i>=0; i--)
+		{
+			my_latlon = lm.getLastKnownLocation(providers.get(i));
+			if (my_latlon != null) break;
+		}
 
 		RequestTask rq = new RequestTask(getApplicationContext());
 		String lang;
@@ -180,16 +174,15 @@ public class NewGeopost extends Activity {
 		rq.execute(
 				"post",
 				lang,
-				// TODO: get proper category as an integer
 				String.valueOf(((Spinner)findViewById(R.id.chose_new_geopost_cat)).getSelectedItemId()),
-				String.valueOf(((NumberPicker) findViewById(R.id.month_picker)).getValue()* 3600* 24* 30
-						+ ((NumberPicker) findViewById(R.id.week_picker)).getValue()* 3600* 24* 7
-						+ ((NumberPicker) findViewById(R.id.day_picker)).getValue()* 3600* 24
-						+ ((NumberPicker) findViewById(R.id.hour_picker)).getValue() * 3600),
-				((EditText) findViewById(R.id.chose_new_geopost_title)).getText().toString(),
-				((EditText) findViewById(R.id.chose_new_geopost_text)).getText().toString(),
-				String.valueOf(my_position.latitude),
-				String.valueOf(my_position.longitude));
+				String.valueOf(((NumberPicker) findViewById(R.id.month_picker)).getValue()*3600*24*30
+						+ ((NumberPicker) findViewById(R.id.week_picker)).getValue()*3600*24*7
+						+ ((NumberPicker) findViewById(R.id.day_picker)).getValue()*3600*24
+						+ ((NumberPicker) findViewById(R.id.hour_picker)).getValue()*3600),
+						((EditText) findViewById(R.id.chose_new_geopost_title)).getText().toString(),
+						((EditText) findViewById(R.id.chose_new_geopost_text)).getText().toString(),
+						String.valueOf(my_latlon.getLatitude()),
+						String.valueOf(my_latlon.getLongitude()));
 		Log.d("Act.post", "Called post");
 
 		String result;

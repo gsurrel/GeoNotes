@@ -90,9 +90,6 @@
             android:name="org.surrel.geoposts.LogIn"
             android:label="@string/login"
             android:windowSoftInputMode="stateVisible|adjustResize" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="org.surrel.geoposts.LogIn" />
         </activity>
         <activity
             android:name="org.surrel.geoposts.SignUp"

@@ -26,6 +26,12 @@ public class MainActivity extends Activity {
 	}
 
 	@Override
+	public void onBackPressed() {
+		// Prevent going back when we landed on login screen.
+		return;
+	}
+
+	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 		switch (item.getItemId()) {
