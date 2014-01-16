@@ -1,24 +1,17 @@
 package org.surrel.geoposts;
 
-import java.io.IOException;
-
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
-
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -28,108 +21,87 @@ import android.widget.ListView;
 public class MyGeoposts extends Activity {
 
 	// List items 
-    ListView list;
-    BinderData adapter = null;
-    List<HashMap<String,String>> myGeopostsDataCollection;
-    
+	ListView list;
+	BinderData adapter = null;
+	List<HashMap<String,String>> myGeopostsDataCollection;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_my_geoposts);
-		
-		DocumentBuilderFactory docBuilderFactory = DocumentBuilderFactory.newInstance();
-		DocumentBuilder docBuilder = null;
-		Document doc = null;
-	
-		try {
-			docBuilder = docBuilderFactory.newDocumentBuilder();
-		} catch (ParserConfigurationException e) {
-			Log.v("tag1","1");
-			e.printStackTrace();
-		}
-		
-		try {
-			doc = docBuilder.parse (getAssets().open("my_geoposts.xml"));
-		} catch (SAXException e) {
-			Log.v("tag2","1");
-			e.printStackTrace();
-		} catch (IOException e) {
-			Log.v("tag2","2");
-			e.printStackTrace();
-		}
 
+		// Open read access for local database
+		NotesDbHelper notesDbHelper = new NotesDbHelper(getApplicationContext());
+		SQLiteDatabase db = notesDbHelper.getReadableDatabase();
+		String[] columns = new String[]{
+				"ID", "lat", "lon", "title",
+				"text", "user", "karma", "creation",
+				"lifetime", "lang", "cat"
+		};
+
+		SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+		String name = settings.getString("user_name", "noName");
+
+		String[] selectionArgs = new String[]{
+				name
+		};
+
+		Log.i("Success", "before filtering");
+		Cursor mygeoposts = db.query(
+				"notes",
+				columns,
+				"( user = ? )",
+				selectionArgs,
+				null, null, null); 
+		Log.i("Success","filtering done successfully !!");
+
+		HashMap<String,String> mygeomap = null;
 
 		final List<HashMap<String,String>> myGeopostsDataCollection = 
-		           new ArrayList<HashMap<String,String>>();
-		
-		doc.getDocumentElement ().normalize ();
-		                        
-		NodeList mygeopostsList = doc.getElementsByTagName("mydata");
-		            
-		HashMap<String,String> mygeomap = null;
-		            
-		for (int i = 0; i < mygeopostsList.getLength(); i++) {
-		             
-		    mygeomap = new HashMap<String,String>(); 
-		               
-		    Node firstgeopostNode = mygeopostsList.item(i);
-		               
-		       if(firstgeopostNode.getNodeType() == Node.ELEMENT_NODE){
+				new ArrayList<HashMap<String,String>>();
+		if(mygeoposts.moveToFirst())
+		{
+			do
+			{
+				mygeomap = new HashMap<String,String>(); 
 
-		         Element firstgeopostElement = (Element)firstgeopostNode;
-		             
-		         NodeList catList = firstgeopostElement.getElementsByTagName("category");
-		         Element firstCatElement = (Element)catList.item(0);
-		         NodeList CatList = firstCatElement.getChildNodes();
-		         mygeomap.put("category", ((Node)CatList.item(0)).getNodeValue().trim());
-		                    
-		         
-		         NodeList titleList = firstgeopostElement.getElementsByTagName("title");
-		         Element firstTitleElement = (Element)titleList.item(0);
-		         NodeList TitleList = firstTitleElement.getChildNodes();
-		         mygeomap.put("title", ((Node)TitleList.item(0)).getNodeValue().trim());
-		                        
-		         NodeList textList = firstgeopostElement.getElementsByTagName("text");
-		         Element firstTextElement = (Element)textList.item(0);
-		         NodeList TextList = firstTextElement.getChildNodes();
-		         mygeomap.put("text", ((Node)TextList.item(0)).getNodeValue().trim());
-		                    
-		         NodeList creaList = firstgeopostElement.getElementsByTagName("creation");
-		         Element firstCreaElement = (Element)creaList.item(0);
-		         NodeList CreaList = firstCreaElement.getChildNodes();
-		         mygeomap.put("creation", ((Node)CreaList.item(0)).getNodeValue().trim());
-		         
-		         myGeopostsDataCollection.add(mygeomap);
-		    }        
+				int cat = mygeoposts.getInt(mygeoposts.getColumnIndex("cat"));
+				String categ = String.valueOf(cat + 1);
+				Date date = new Date(1000*mygeoposts.getLong(mygeoposts.getColumnIndex("creation")));
+				mygeomap.put("category", categ);
+				mygeomap.put("title", mygeoposts.getString(mygeoposts.getColumnIndex("title")));
+				mygeomap.put("text", mygeoposts.getString(mygeoposts.getColumnIndex("text")));
+				mygeomap.put("creation", String.valueOf(date));
+				mygeomap.put("ID", mygeoposts.getString(mygeoposts.getColumnIndex("ID")));
+				Log.d("MyGeoposts", mygeoposts.getString(mygeoposts.getColumnIndex("ID")));
+				myGeopostsDataCollection.add(mygeomap);	
+			} 
+			while(mygeoposts.moveToNext());
 		}
-		
+
 		BinderData bindingData = new BinderData(this,myGeopostsDataCollection);
 
-		
 		list = (ListView) findViewById(R.id.geopost_list);
-
-		Log.i("BEFORE", "<<------------- Before SetAdapter-------------->>");
 
 		list.setAdapter(bindingData);
 
-		Log.i("AFTER", "<<------------- After SetAdapter-------------->>");
-
 		list.setOnItemClickListener(new OnItemClickListener() {
 
-			public void onItemClick(AdapterView<?> parent, View view,
-					int position, long id) {
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+			{
 
 				Intent i = new Intent();
-				i.setClass(MyGeoposts.this, SampleActivity.class);
-				
+				i.setClass(MyGeoposts.this, MyGeoPostDetails.class);
+
 				i.putExtra("position", String.valueOf(position + 1));
-				
 				i.putExtra("category", myGeopostsDataCollection.get(position).get("category"));
 				i.putExtra("text", myGeopostsDataCollection.get(position).get("text"));
 				i.putExtra("title", myGeopostsDataCollection.get(position).get("title"));
 				i.putExtra("creation", myGeopostsDataCollection.get(position).get("creation"));
+				i.putExtra("ID", myGeopostsDataCollection.get(position).get("ID"));
+				Log.d("MyGeoposts2", myGeopostsDataCollection.get(position).get("ID"));
 
-				// start the sample activity
+				// start Sample Activity
 				startActivity(i);
 			}
 		});

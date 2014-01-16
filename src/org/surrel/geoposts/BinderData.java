@@ -20,7 +20,6 @@ public class BinderData extends BaseAdapter {
 	List<HashMap<String,String>> myGeopostsDataCollection;
 	ViewHolder holder;
 	public BinderData() {
-		// TODO Auto-generated constructor stub
 	}
 	
 	public BinderData(Activity act, List<HashMap<String,String>> map) {

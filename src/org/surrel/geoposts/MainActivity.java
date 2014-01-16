@@ -52,7 +52,6 @@ public class MainActivity extends Activity {
 			Log.d("Menu", "Calling refresh");
 			RequestTask rq = new RequestTask(getApplicationContext());
 			settings.getInt("user_id", -1);
-			// TODO: switch to real user ID when server ready to
 			rq.execute("updateDB");
 			Log.d("Menu", "Called refresh");
 			return true;
@@ -113,7 +112,7 @@ public class MainActivity extends Activity {
 	}
 
 	public void ViewMap(View view) {
-		Intent viewmap = new Intent(this, GetLocation.class);
+		Intent viewmap = new Intent(this, ViewMap.class);
 		startActivity(viewmap);
 	}
 

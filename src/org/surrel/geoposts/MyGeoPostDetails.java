@@ -14,12 +14,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 
-public class SampleActivity extends Activity {
+public class MyGeoPostDetails extends Activity {
 	
 	String category = "";
 	String creation = "";
 	String text = "";
 	String title = "";
+	String ID = "";
 	
 	TextView tvcategory;
 	TextView tvtitle;
@@ -38,7 +39,7 @@ public class SampleActivity extends Activity {
 	    Delete.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				AlertDialog.Builder cancel_dialog = new AlertDialog.Builder(SampleActivity.this);
+				AlertDialog.Builder cancel_dialog = new AlertDialog.Builder(MyGeoPostDetails.this);
 				cancel_dialog.setMessage(R.string.message_delete)
 				       .setTitle(R.string.title_delete)
 				       .setCancelable(false)
@@ -75,6 +76,7 @@ public class SampleActivity extends Activity {
 	        this.title = i.getStringExtra("title");
 	        this.text =	i.getStringExtra("text");
 	        this.creation =  i.getStringExtra("creation");
+	        this.ID =  i.getStringExtra("ID");
 		
 		    //text elements
 		    tvtitle.setText(title);
@@ -109,8 +111,13 @@ public class SampleActivity extends Activity {
     }
     
     public void BackToMain()
-	{
-		Intent back_to_main  = new Intent(this, MyGeoposts.class);
-		startActivity(back_to_main);
-	}
+    {
+    	Log.d("Act.post.remove", "Called post remove");
+    	RequestTask rq = new RequestTask(getApplicationContext());
+    	rq.execute("remove", this.ID);
+    	Log.d("Act.post.remove", "Called post remove");
+
+    	Intent back_to_main  = new Intent(this, MyGeoposts.class);
+    	startActivity(back_to_main);
+    }
 }

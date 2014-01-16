@@ -1,20 +1,21 @@
 package org.surrel.geoposts;
 
 import java.util.Date;
+import java.util.List;
 
 import android.app.Activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 
-import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
 import com.google.android.gms.maps.MapFragment;
@@ -24,7 +25,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-public class GetLocation extends Activity implements OnMarkerClickListener {
+public class ViewMap extends Activity implements OnMarkerClickListener {
 
 	private GoogleMap map;
 
@@ -33,48 +34,38 @@ public class GetLocation extends Activity implements OnMarkerClickListener {
 	{ 
 		super.onCreate(icicle);
 		setContentView(R.layout.activity_get_location);
-
-		Double perimeter = (double)( Integer.parseInt( (Preferences.perimeter).replaceAll("[^0-9.]", "") ) );
-		Log.e("success"," value in map perimeter = " + String.valueOf(perimeter));
-		Integer en = bool_to_int(Preferences.engl);
-		Integer fr = bool_to_int(Preferences.fren);
-		Integer it = bool_to_int(Preferences.ital);
-		Integer ge = bool_to_int(Preferences.germ);
-		Integer com = bool_to_int(Preferences.comm);
-		Log.e("success","value in map com = " + String.valueOf(com));
-		Integer recom = bool_to_int(Preferences.reco);
-		Log.e("success","value in map recom = " + String.valueOf(recom));
-		Integer spec  = bool_to_int(Preferences.sp_e);
-
-		Log.e("success", "load finished");
+		
+		SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+		Boolean engl = settings.getBoolean("English", true);
+		Boolean ital = settings.getBoolean("Italian", true);
+		Boolean germ = settings.getBoolean("German", true);
+		Boolean fren = settings.getBoolean("French", true);
+		Boolean comm = settings.getBoolean("Comment", true);
+		Boolean reco = settings.getBoolean("Recommendation", true);
+		Boolean sp_e = settings.getBoolean("Special_event", true);
+		String per = settings.getString("geoperimeter", "10km");
+		
+		Double perimeter = (double)( Integer.parseInt( (per).replaceAll("[^0-9.]", "") ) );
+		Integer en = bool_to_int(engl);
+	    Integer fr = bool_to_int(fren);
+	    Integer it = bool_to_int(ital);
+	    Integer ge = bool_to_int(germ);
+	    Integer com = bool_to_int(comm);
+	    Integer recom = bool_to_int(reco);
+	    Integer spec  = bool_to_int(sp_e);
 
 		map = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
 
 		map.setMyLocationEnabled(true);
 
-		LocationManager locationManager;
-		String context = Context.LOCATION_SERVICE;
-		locationManager = (LocationManager)getSystemService(context);
-
-		Criteria criteria = new Criteria();
-		criteria.setAccuracy(Criteria.ACCURACY_FINE);
-		criteria.setAltitudeRequired(false);
-		criteria.setBearingRequired(false);
-		criteria.setCostAllowed(true);
-		criteria.setPowerRequirement(Criteria.POWER_LOW);
-
-		String bestprovider = locationManager.getBestProvider(criteria, true);
-		Location location = locationManager.getLastKnownLocation(bestprovider);
-
-		LatLng my_position;
-
-		try {
-			my_position = new LatLng(location.getLatitude(),location.getLongitude());
-			map.moveCamera(CameraUpdateFactory.newLatLngZoom(my_position, 15));
-		} catch (Exception e) {
-
-			my_position = new LatLng(0,0);
-			map.moveCamera(CameraUpdateFactory.newLatLngZoom(my_position, 1));
+		LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);  
+		List<String> providers = lm.getProviders(true);
+		// Loop over array and if we get an accurate location we break out the loop
+		Location my_latlon = null;
+		for(int i=providers.size()-1; i>=0; i--)
+		{
+			my_latlon = lm.getLastKnownLocation(providers.get(i));
+			if (my_latlon != null) break;
 		}
 
 		// Open read access for local database
@@ -90,11 +81,11 @@ public class GetLocation extends Activity implements OnMarkerClickListener {
 		Log.i("Current time", String.valueOf(currentTime/1000));
 
 		String[] selectionArgs = new String[]{
-				String.valueOf(perimeter*10000),
-				String.valueOf(my_position.latitude),
-				String.valueOf(my_position.latitude),
-				String.valueOf(my_position.longitude),
-				String.valueOf(my_position.longitude),
+				String.valueOf(perimeter),
+				String.valueOf(my_latlon.getLatitude()),
+				String.valueOf(my_latlon.getLatitude()),
+				String.valueOf(my_latlon.getLongitude()),
+				String.valueOf(my_latlon.getLongitude()),
 				// TODO: get this filter working. Works fine out of SQL request
 				//String.valueOf(currentTime),
 				String.valueOf(recom),
@@ -170,7 +161,7 @@ public class GetLocation extends Activity implements OnMarkerClickListener {
 						@Override
 						public boolean onMarkerClick(Marker marker) {
 							Intent intent = new Intent();
-							intent.setClass(GetLocation.this, ViewGeopost.class);
+							intent.setClass(ViewMap.this, ViewGeopost.class);
 
 							intent.putExtra("id", marker.getTitle());
 

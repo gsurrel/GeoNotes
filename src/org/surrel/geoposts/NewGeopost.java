@@ -5,9 +5,6 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
-import com.google.android.gms.maps.model.LatLng;
-
-import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
@@ -64,23 +61,19 @@ public class NewGeopost extends Activity {
 		Cancel.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				AlertDialog.Builder cancel_dialog = new AlertDialog.Builder(
-						NewGeopost.this);
-				cancel_dialog
-				.setMessage(R.string.message_cancel)
+				AlertDialog.Builder cancel_dialog = new AlertDialog.Builder(NewGeopost.this);
+				cancel_dialog.setMessage(R.string.message_cancel)
 				.setTitle(R.string.title_cancel)
 				.setCancelable(false)
 				.setPositiveButton(R.string.yes,
 						new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog,
-							int which) {
+					public void onClick(DialogInterface dialog, int which) {
 						sendThenBackToMain();
 					}
 				})
 				.setNegativeButton(R.string.no,
 						new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog,
-							int which) {
+					public void onClick(DialogInterface dialog, int which) {
 						dialog.cancel();
 					}
 				});
@@ -93,23 +86,19 @@ public class NewGeopost extends Activity {
 		Submit.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				AlertDialog.Builder cancel_dialog = new AlertDialog.Builder(
-						NewGeopost.this);
-				cancel_dialog
-				.setMessage(R.string.message_submit)
+				AlertDialog.Builder cancel_dialog = new AlertDialog.Builder(NewGeopost.this);
+				cancel_dialog.setMessage(R.string.message_submit)
 				.setTitle(R.string.title_submit)
 				.setCancelable(false)
 				.setPositiveButton(R.string.yes,
 						new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog,
-							int which) {
+					public void onClick(DialogInterface dialog, int which) {
 						sendThenBackToMain();
 					}
 				})
 				.setNegativeButton(R.string.no,
 						new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog,
-							int which) {
+					public void onClick(DialogInterface dialog, int which) {
 						dialog.cancel();
 					}
 				});
@@ -139,12 +128,12 @@ public class NewGeopost extends Activity {
 		}
 	}
 
-	public void sendThenBackToMain() {
+	public void sendThenBackToMain()
+	{
 		Log.d("Act.post", "Calling post");
 
 		LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);  
 		List<String> providers = lm.getProviders(true);
-
 		// Loop over array and if we get an accurate location we break out the loop
 		Location my_latlon = null;
 		for(int i=providers.size()-1; i>=0; i--)
@@ -191,18 +180,16 @@ public class NewGeopost extends Activity {
 			result = rq.get(5, TimeUnit.SECONDS);
 			Log.d("Act.post", result);
 
-			if (result == res.getString(R.string.post_ok)) {
-				Intent back_to_main = new Intent(this, MainActivity.class);
+			if(result == res.getString(R.string.post_ok))
+			{
+				Intent back_to_main  = new Intent(this, MainActivity.class);
 				startActivity(back_to_main);
 			}
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (ExecutionException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (TimeoutException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

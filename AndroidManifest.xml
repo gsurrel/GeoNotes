@@ -42,7 +42,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="org.surrel.geoposts.GetLocation"
+            android:name="org.surrel.geoposts.ViewMap"
             android:label="@string/title_activity_get_location"
             android:parentActivityName="org.surrel.geoposts.MainActivity" >
             <meta-data
@@ -75,7 +75,7 @@
                 android:value="org.surrel.geoposts.MainActivity" />
         </activity>
         <activity
-            android:name="org.surrel.geoposts.SampleActivity"
+            android:name="org.surrel.geoposts.MyGeoPostDetails"
             android:label="@string/title_activity_sample_activity"
             android:parentActivityName="org.surrel.geoposts.MyGeoposts" >
             <meta-data
@@ -103,7 +103,7 @@
         <activity
             android:name="org.surrel.geoposts.ViewGeopost"
             android:label="@string/view_geopost"
-            android:parentActivityName="org.surrel.geoposts.GetLocation"
+            android:parentActivityName="org.surrel.geoposts.ViewMap"
             android:theme="@style/Transparent" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

@@ -14,15 +14,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.google.android.gms.maps.model.LatLng;
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.database.sqlite.SQLiteDatabase;
-import android.location.Location;
-import android.location.LocationManager;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
@@ -35,17 +31,7 @@ public class GeoPostServer
 	public static final int ERROR_LOGIN = 4;
 	public static final int ERROR_EMAIL_UNIQUE = 5;
 	public static final int ERROR_USERNAME_UNIQUE = 6;
-
-	/* Could be handy in the future
-	for(int i=1; i<args.length; i++)
-	{
-		params = params.concat(args[i]);
-		if(i<args.length-1)
-		{
-			params = params.concat("&");
-		}
-	}
-	 */
+	public static final int ERROR_POST = 7;
 
 	private Context context;
 
@@ -112,7 +98,7 @@ public class GeoPostServer
 		// Gets the data repository in write mode and drop current DB
 		NotesDbHelper notesDbHelper = new NotesDbHelper(context);
 		SQLiteDatabase db = notesDbHelper.getWritableDatabase();
-		//notesDbHelper.onUpgrade(db, 0, 0);
+		notesDbHelper.onUpgrade(db, 0, 0);
 
 		Log.v("gps.refreshDB", this.data.toString());
 		
@@ -247,7 +233,7 @@ public class GeoPostServer
 			Log.v("gps.post", "Warnings: "+this.warnings.toString());
 		if(this.errors != null)
 			Log.v("gps.post", "Errors: "+this.errors.toString());
-		Log.v("gps.login", "Data: "+this.data.toString());
+		Log.v("gps.post", "Data: "+this.data.toString());
 		
 		// Save user details in settings
 		if(!this.data.isNull("data") && this.data.getBoolean("data"))
@@ -256,7 +242,36 @@ public class GeoPostServer
 		}
 		else
 		{
-			result = ERROR_LOGIN;
+			result = ERROR_POST;
+		}
+		
+		return result;
+	}
+
+	public int remove(String ID) throws JSONException, IOException
+	{
+
+		String params = "action=note_remove&ID="+ID;
+		Log.i("gps.remove", "Trying removing: "+params);
+		int result = request(params);
+		Log.i("gps.remove", "Result: "+result);
+
+		if(this.infos != null)
+			Log.v("gps.remove", "Infos: "+this.infos.toString());
+		if(this.warnings != null)
+			Log.v("gps.remove", "Warnings: "+this.warnings.toString());
+		if(this.errors != null)
+			Log.v("gps.remove", "Errors: "+this.errors.toString());
+		Log.v("gps.remove", "Data: "+this.data.toString());
+		
+		// Save user details in settings
+		if(!this.data.isNull("data") && this.data.getBoolean("data"))
+		{
+			Log.v("gps.remove", "Post removed!");
+		}
+		else
+		{
+			result = ERROR_POST;
 		}
 		
 		return result;

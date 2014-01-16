@@ -1,15 +1,11 @@
 package org.surrel.geoposts;
+
 import java.util.List;
-
-
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;
-import android.preference.PreferenceManager;
 import android.util.Log;
 
 public class Preferences extends PreferenceActivity {
@@ -26,7 +22,6 @@ public class Preferences extends PreferenceActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-		SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
     }
 
     @Override
