@@ -236,7 +236,7 @@ public class GeoPostServer
 	public int post(String lang, String category, String lifetime, String title, String text, String lat, String lon) throws JSONException, IOException
 	{
 
-		String params = "action=note_add&title="+title+"&text="+text+"&category="+category+"&lifetime="+lifetime+"&lang="+lang+"&lat="+lat+"&lon="+lon;
+		String params = "action=note_add&title="+title+"&text="+text+"&cat="+category+"&lifetime="+lifetime+"&lang="+lang+"&lat="+lat+"&lon="+lon;
 		Log.i("gps.post", "Trying posting: "+params);
 		int result = request(params);
 		Log.i("gps.post", "Result: "+result);
@@ -250,18 +250,9 @@ public class GeoPostServer
 		Log.v("gps.login", "Data: "+this.data.toString());
 		
 		// Save user details in settings
-		if(!this.data.isNull("data"))
+		if(!this.data.isNull("data") && this.data.getBoolean("data"))
 		{
-			Log.v("gps.post", "Writing settings");
-			SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
-			Editor settings_editor = settings.edit();
-			JSONObject user = this.data.getJSONObject("data");
-			settings_editor.putInt("user_id", user.getInt("ID"));
-			settings_editor.putString("user_name", user.getString("username"));
-			settings_editor.putString("user_email", user.getString("email"));
-			// TODO: restore settings from server to app
-			settings_editor.apply();
-			Log.v("gps.post", "Writing done.");
+			Log.v("gps.post", "Post added!");
 		}
 		else
 		{

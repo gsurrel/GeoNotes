@@ -44,6 +44,10 @@
    
     <string name="profile_pref">Your Profile Preferences</string>
     
+    <string name="your_id_is">Your ID is:</string>
+    <string name="your_name_is">Your name is:</string>
+    <string name="your_email_is">Your email is:</string>
+    
     <string name="edit_pseudo">Edit Your Pseudo</string>
     <string name="text_edit_pseudo">Change the Pseudo that appears in your GeoPosts</string>
     <string name="new_pseudo">New Pseudo</string>
@@ -84,8 +88,8 @@
     <string name="view_geopost">GeoPost</string>
 
     <!-- Network related strings -->
-    <string name="refresh_unknown_error">An unknown error occurred. Try again later.</string>
-    <string name="refresh_network_error">Refresh failed. Please check your network connectivity</string>
+    <string name="unknown_error">An unknown error occurred. Try again later.</string>
+    <string name="network_error">Please check your network connectivity and try again.</string>
     <string name="refresh_data_error">Refresh failed. Data is corrupted</string>
     <string name="refresh_ok">Refresh OK</string>
     <string name="wrong_request">Malformed network request</string>
@@ -97,6 +101,7 @@
     <string name="signup_username_unique">Username already exists!</string>
     <string name="signup_email_unique">Email already used!</string>
     <string name="post_ok">Creation successful!</string>
+    <string name="post_error">Creation failed!</string>
     <!-- End of network related strings -->
     
 </resources>

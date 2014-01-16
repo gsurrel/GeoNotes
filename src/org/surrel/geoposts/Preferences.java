@@ -2,22 +2,31 @@ package org.surrel.geoposts;
 import java.util.List;
 
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.ListPreference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;
+import android.preference.PreferenceManager;
 import android.util.Log;
 
-public class Preferences extends PreferenceActivity{
+public class Preferences extends PreferenceActivity {
 	
 	public static String perimeter = "1km";
-	public static Boolean ital = false, germ = false, fren = true, engl = true, comm = true, 
-			sp_e = true, reco = true;
+	public static Boolean ital = false,
+			germ = false,
+			fren = true,
+			engl = true,
+			comm = true, 
+			sp_e = true,
+			reco = true;
 	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+		SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
     }
 
     @Override
@@ -42,9 +51,7 @@ public class Preferences extends PreferenceActivity{
         }
         
         public void onPause() {
-        	
         	super.onPause();
-        	
         	engl = ((CheckBoxPreference)getPreferenceScreen().findPreference("English")).isChecked();
             germ = ((CheckBoxPreference)getPreferenceScreen().findPreference("German")).isChecked();
             ital = ((CheckBoxPreference)getPreferenceScreen().findPreference("Italian")).isChecked();
@@ -62,6 +69,9 @@ public class Preferences extends PreferenceActivity{
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             addPreferencesFromResource(R.xml.user_preferences);
+            findPreference("user_id").setSummary(String.valueOf(this.getPreferenceManager().getSharedPreferences().getInt("user_id", -1)));
+            findPreference("user_name").setSummary(this.getPreferenceManager().getSharedPreferences().getString("user_name", "NoName"));
+            findPreference("user_email").setSummary(this.getPreferenceManager().getSharedPreferences().getString("user_email", "NoMail"));
         }
     } 
 }

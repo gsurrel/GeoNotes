@@ -15,7 +15,7 @@ public class NotesDbHelper extends SQLiteOpenHelper {
 					"text TEXT, " +
 					"user TEXT, " +
 					"karma INTEGER, " +
-					"creation NUMERIC, " +
+					"creation INTEGER, " +
 					"lifetime INTEGER, " +
 					"lang TEXT, " +
 					"cat INTEGER); " +

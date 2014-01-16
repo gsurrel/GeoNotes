@@ -1,21 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
 
-<PreferenceScreen
-    
-    xmlns:android="http://schemas.android.com/apk/res/android">
-    
-        <PreferenceCategory
-            
-            android:key="@string/profile_pref"
-            android:title="@string/profile_pref">
-            
-            <EditTextPreference
-            android:key="edit_pseudo"
-            android:title="@string/edit_pseudo"
-            android:summary="@string/text_edit_pseudo"
+    <PreferenceCategory
+        android:key="@string/profile_pref"
+        android:title="@string/profile_pref" >
+        <Preference
+            android:key="user_id"
+            android:title="@string/your_id_is" />
+        <Preference
+            android:key="user_name"
+            android:title="@string/your_name_is" />
+        <Preference
+            android:key="user_email"
+            android:title="@string/your_email_is" />
+
+        <!-- <EditTextPreference
+            android:defaultValue="@string/default_pseudo"
+            android:dialogMessage="@string/text_enter_pseudo"
             android:dialogTitle="@string/new_pseudo"
-            android:dialogMessage="@string/text_enter_pseudo"   
-            android:defaultValue="@string/default_pseudo" />
-            
-       </PreferenceCategory>     
+            android:key="edit_pseudo"
+            android:summary="@string/text_edit_pseudo"
+            android:title="@string/edit_pseudo" />  -->
+    </PreferenceCategory>
+
 </PreferenceScreen>

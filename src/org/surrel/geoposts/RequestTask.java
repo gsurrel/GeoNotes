@@ -75,21 +75,11 @@ class RequestTask extends AsyncTask<String, String, String>{
 				int tmp = gps.post(args[1], args[2], args[3], args[4], args[5], args[6], args[7]);
 				if(tmp == GeoPostServer.OK)
 				{
-					result = res.getString(R.string.signup_ok);
+					result = res.getString(R.string.post_ok);
 				}
 				else
 				{
-					switch(tmp)
-					{
-					case GeoPostServer.ERROR_EMAIL_UNIQUE:
-						result = res.getString(R.string.signup_email_unique);
-						break;
-					case GeoPostServer.ERROR_USERNAME_UNIQUE:
-						result = res.getString(R.string.signup_username_unique);
-						break;
-					default:
-						result = res.getString(R.string.signup_error);
-					}
+					result = res.getString(R.string.post_error);
 				}
 			}
 			else
@@ -101,11 +91,11 @@ class RequestTask extends AsyncTask<String, String, String>{
 			Log.e("request", "Error in data received");
 			e.printStackTrace();
 		} catch (IOException e) {
-			result = res.getString(R.string.refresh_network_error);
+			result = res.getString(R.string.network_error);
 			Log.e("request", "Error in network");
 			e.printStackTrace();
 		} catch (Exception e) {
-			result = res.getString(R.string.refresh_unknown_error);
+			result = res.getString(R.string.unknown_error);
 			Log.wtf("request", "Unexpected error");
 			e.printStackTrace();
 		}
