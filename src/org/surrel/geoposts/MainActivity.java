@@ -62,6 +62,7 @@ public class MainActivity extends Activity {
 		// We check if user already logged in
 		Log.v("Act.login", "Autologin?");
 		SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+		Log.i("Act.login", "User ID = "+settings.getInt("user_id", -1));
 		if(settings.getInt("user_id", -1) != -1)
 		{
 			Log.v("Act.login", "Yes, sir!");

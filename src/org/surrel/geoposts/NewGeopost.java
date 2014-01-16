@@ -148,7 +148,7 @@ public class NewGeopost extends Activity {
 		//Log.i("sendThenBackToMain", location.toString());
 		//LatLng my_position = new LatLng(location.getLatitude(),location.getLongitude());
 		// TODO: get real location
-		LatLng my_position = new LatLng(46.51834, 6.56807);
+		LatLng my_position = new LatLng(46.5182, 6.5679);
 		
 		RequestTask rq = new RequestTask(getApplicationContext());
 		rq.execute("post",

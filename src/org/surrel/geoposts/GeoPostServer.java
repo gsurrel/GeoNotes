@@ -55,10 +55,21 @@ public class GeoPostServer
 
 	public GeoPostServer(Context context)
 	{
+		SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(context);
+
 		this.context = context;
+		
 		try
 		{
-			url = new URL("http://gregoire.surrel.org/gps/?api&username_email=test&password=test&");
+			if(settings.getInt("user_id", -1) != -1)
+			{
+				url = new URL("http://gregoire.surrel.org/gps/?api&user_id="+String.valueOf(settings.getInt("user_id", -1)+"&"));
+			}
+			else
+			{
+				url = new URL("http://gregoire.surrel.org/gps/?api&");
+			}
+			Log.d("gps.request.constructor", url.toString());
 		}
 		catch (MalformedURLException e)
 		{
