@@ -251,7 +251,7 @@ public class GeoPostServer
 	public int remove(String ID) throws JSONException, IOException
 	{
 
-		String params = "action=note_remove&ID="+ID;
+		String params = "action=note_remove&id="+ID;
 		Log.i("gps.remove", "Trying removing: "+params);
 		int result = request(params);
 		Log.i("gps.remove", "Result: "+result);

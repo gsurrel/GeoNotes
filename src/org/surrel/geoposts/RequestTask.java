@@ -75,7 +75,7 @@ class RequestTask extends AsyncTask<String, String, String>{
 				int tmp = gps.post(args[1], args[2], args[3], args[4], args[5], args[6], args[7]);
 				if(tmp == GeoPostServer.OK)
 				{
-					result = res.getString(R.string.post_ok);
+					result = res.getString(R.string.post_add_ok);
 				}
 				else
 				{
@@ -87,7 +87,7 @@ class RequestTask extends AsyncTask<String, String, String>{
 				int tmp = gps.remove(args[1]);
 				if(tmp == GeoPostServer.OK)
 				{
-					result = res.getString(R.string.post_ok);
+					result = res.getString(R.string.post_remove_ok);
 				}
 				else
 				{

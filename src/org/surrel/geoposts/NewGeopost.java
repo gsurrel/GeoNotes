@@ -180,7 +180,7 @@ public class NewGeopost extends Activity {
 			result = rq.get(5, TimeUnit.SECONDS);
 			Log.d("Act.post", result);
 
-			if(result == res.getString(R.string.post_ok))
+			if(result == res.getString(R.string.post_add_ok))
 			{
 				Intent back_to_main  = new Intent(this, MainActivity.class);
 				startActivity(back_to_main);

@@ -73,7 +73,6 @@ public class MyGeoposts extends Activity {
 				mygeomap.put("text", mygeoposts.getString(mygeoposts.getColumnIndex("text")));
 				mygeomap.put("creation", String.valueOf(date));
 				mygeomap.put("ID", mygeoposts.getString(mygeoposts.getColumnIndex("ID")));
-				Log.d("MyGeoposts", mygeoposts.getString(mygeoposts.getColumnIndex("ID")));
 				myGeopostsDataCollection.add(mygeomap);	
 			} 
 			while(mygeoposts.moveToNext());
@@ -99,12 +98,10 @@ public class MyGeoposts extends Activity {
 				i.putExtra("title", myGeopostsDataCollection.get(position).get("title"));
 				i.putExtra("creation", myGeopostsDataCollection.get(position).get("creation"));
 				i.putExtra("ID", myGeopostsDataCollection.get(position).get("ID"));
-				Log.d("MyGeoposts2", myGeopostsDataCollection.get(position).get("ID"));
 
 				// start Sample Activity
 				startActivity(i);
 			}
 		});
 	}
-
 }

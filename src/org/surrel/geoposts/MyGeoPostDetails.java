@@ -1,11 +1,16 @@
 package org.surrel.geoposts;
 
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
+
 import android.os.Bundle;
 
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.View;
@@ -112,10 +117,29 @@ public class MyGeoPostDetails extends Activity {
     
     public void BackToMain()
     {
-    	Log.d("Act.post.remove", "Called post remove");
+		String result;
+		Resources res = getResources();
+
+		Log.d("Act.post.remove", "Called post remove");
     	RequestTask rq = new RequestTask(getApplicationContext());
     	rq.execute("remove", this.ID);
     	Log.d("Act.post.remove", "Called post remove");
+    	
+    	try {
+			result = rq.get(5, TimeUnit.SECONDS);
+			Log.d("Act.login", result);
+			if(result == res.getString(R.string.post_remove_ok))
+			{
+				this.finish();
+			}
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		} catch (ExecutionException e) {
+			e.printStackTrace();
+		} catch (TimeoutException e) {
+			e.printStackTrace();
+		}
+
 
     	Intent back_to_main  = new Intent(this, MyGeoposts.class);
     	startActivity(back_to_main);

@@ -100,7 +100,8 @@
     <string name="signup_error">Signup failed!</string>
     <string name="signup_username_unique">Username already exists!</string>
     <string name="signup_email_unique">Email already used!</string>
-    <string name="post_ok">Creation successful!</string>
+    <string name="post_add_ok">Creation successful!</string>
+    <string name="post_remove_ok">Removal successful!</string>
     <string name="post_add_error">Creation failed!</string>
     <string name="post_remove_error">Creation failed!</string>
     <!-- End of network related strings -->

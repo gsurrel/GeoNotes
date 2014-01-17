@@ -25,7 +25,6 @@ public class ViewGeopost extends Activity{
 		finish();
 		return;
 	}
-
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {

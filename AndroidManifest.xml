@@ -45,42 +45,27 @@
             android:name="org.surrel.geoposts.ViewMap"
             android:label="@string/title_activity_get_location"
             android:parentActivityName="org.surrel.geoposts.MainActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="org.surrel.geoposts.MainActivity" />
         </activity>
         <activity
             android:name="org.surrel.geoposts.NewGeopost"
             android:label="@string/title_activity_new_geopost"
             android:parentActivityName="org.surrel.geoposts.MainActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="org.surrel.geoposts.MainActivity" />
         </activity>
         <activity
             android:name="org.surrel.geoposts.Preferences"
             android:label="@string/title_activity_preferences"
             android:parentActivityName="org.surrel.geoposts.MainActivity"
             android:theme="@style/backgroundstyle" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="org.surrel.geoposts.MainActivity" />
         </activity>
         <activity
             android:name="org.surrel.geoposts.MyGeoposts"
             android:label="@string/title_activity_my_geoposts"
             android:parentActivityName="org.surrel.geoposts.MainActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="org.surrel.geoposts.MainActivity" />
         </activity>
         <activity
             android:name="org.surrel.geoposts.MyGeoPostDetails"
             android:label="@string/title_activity_sample_activity"
             android:parentActivityName="org.surrel.geoposts.MyGeoposts" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="org.surrel.geoposts.MainActivity" />
         </activity>
         <activity
             android:name="org.surrel.geoposts.FirstLaunchActivity"
@@ -96,18 +81,12 @@
             android:label="@string/signup"
             android:parentActivityName="org.surrel.geoposts.LogIn"
             android:windowSoftInputMode="stateVisible|adjustResize" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="org.surrel.geoposts.LogIn" />
         </activity>
         <activity
             android:name="org.surrel.geoposts.ViewGeopost"
             android:label="@string/view_geopost"
             android:parentActivityName="org.surrel.geoposts.ViewMap"
             android:theme="@style/Transparent" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="org.surrel.geoposts.GetLocation" />
         </activity>
 
         <meta-data
