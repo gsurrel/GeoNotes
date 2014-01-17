@@ -103,6 +103,8 @@ public class GeoPostServer
 		Log.v("gps.refreshDB", this.data.toString());
 		
 		JSONArray notes = this.data.getJSONArray("data");
+		db.beginTransaction();
+		boolean failed = false;
 		for(int i=0; i<notes.length(); i++)
 		{
 			// Read JSON note data and insert in DB
@@ -121,12 +123,18 @@ public class GeoPostServer
 			{
 				// Error occurred
 				Log.e("gps.refreshDB", "Could not insert/update in DB");
+				failed = true;
 			}
 			else
 			{
 				Log.v("gps.refreshDB", "Post successfully inserted/updated in DB");
 			}
 		}
+		if(!failed)
+		{
+			db.setTransactionSuccessful();
+		}
+		db.endTransaction();
 
 		Log.v("gps.refreshDB", String.valueOf(result));
 
